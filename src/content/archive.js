@@ -1,0 +1,42 @@
+/**
+ * The Archive: a visual record of people, places, history, photography,
+ * cultural life, paintings, events and memory. Each item carries one or more
+ * tags used by the filters. Captions describe what is visible; they do not
+ * name sitters or venues the source does not confirm.
+ */
+
+export const archiveFilters = [
+  { key: "all", label: "All" },
+  { key: "portraits", label: "Portraits" },
+  { key: "people", label: "People" },
+  { key: "places", label: "Places" },
+  { key: "history", label: "History" },
+  { key: "culture", label: "Culture" },
+  { key: "photography", label: "Photography" },
+  { key: "paintings", label: "Paintings" },
+  { key: "events", label: "Events" },
+];
+
+export const archiveItems = [
+  { id: 12, alt: "Gurpreet Singh with palette and brush beside his painting of Maharaja Ranjit Singh", caption: "Beside the Maharaja Ranjit Singh canvas", tags: ["paintings", "history", "portraits"], size: "wide" },
+  { id: 1, alt: "The artist reading among stacked books in window light, black and white", caption: "Reading, window light", tags: ["photography", "people"], size: "wide" },
+  { id: "15-studio", alt: "The artist at his drafting table, drawing", caption: "At the drafting table", tags: ["photography", "people"], size: "tall" },
+  { id: 16, alt: "Painting a young maharaja at the easel", caption: "At the easel", tags: ["paintings", "history", "portraits"], size: "tall" },
+  { id: 8, alt: "Portrait study of a young man in a peach turban", caption: "Portrait study", tags: ["portraits", "photography"], size: "square" },
+  { id: 13, alt: "Portrait of a man in a patterned waistcoat", caption: "Portrait", tags: ["portraits"], size: "tall" },
+  { id: 4, alt: "The artist beside his award-winning painting of animals on a red ground", caption: "Award-winning canvas, exhibition", tags: ["paintings", "events"], size: "wide" },
+  { id: "12-lion", alt: "Painted detail of a lion", caption: "Detail, lion", tags: ["paintings", "history"], size: "square" },
+  { id: "12-face", alt: "Painted detail of a face beneath a jewelled turban", caption: "Detail, face", tags: ["paintings", "history", "portraits"], size: "tall" },
+  { id: 3, alt: "An award presentation on stage at the Lalit Kala Akademi", caption: "Lalit Kala Akademi, on stage", tags: ["events", "people"], size: "wide" },
+  { id: 2, alt: "Artists gathered before a wall of paintings at an opening", caption: "Gallery opening", tags: ["events", "people", "places"], size: "wide" },
+  { id: 11, alt: "A gallery interior hung with paintings", caption: "Gallery interior", tags: ["places", "events"], size: "square" },
+  { id: 19, alt: "Visitors queuing along a wall of framed photographs", caption: "Visitors at an exhibition", tags: ["places", "events", "photography"], size: "wide" },
+  { id: 5, alt: "Folk performers lifted mid-dance on a lit stage", caption: "Folk performance", tags: ["culture", "events"], size: "square" },
+  { id: 6, alt: "A staged performance in traditional dress", caption: "On stage, in costume", tags: ["culture", "events"], size: "square" },
+  { id: 17, alt: "The artist in a shawl, listening to an elder", caption: "In conversation", tags: ["people", "culture"], size: "tall" },
+  { id: 9, alt: "In conversation with a senior painter at a workshop", caption: "Workshop conversation", tags: ["people", "events"], size: "square" },
+  { id: 10, alt: "Three artists standing together outdoors", caption: "Fellow artists", tags: ["people"], size: "square" },
+  { id: 18, alt: "The artist seated among many of his framed paintings", caption: "Among the paintings", tags: ["paintings", "people"], size: "square" },
+  { id: 14, alt: "Walking a forest trail with a camera bag", caption: "On the trail", tags: ["places", "photography"], size: "tall" },
+  { id: 7, alt: "Painting at the easel in a red kurta", caption: "At work", tags: ["people", "paintings"], size: "square" },
+];
