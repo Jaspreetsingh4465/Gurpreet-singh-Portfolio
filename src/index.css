@@ -1185,3 +1185,30 @@ body {
   );
   mix-blend-mode: screen;
 }
+
+/* The home hero plate. Anchored so the artist's head and turban stay in frame
+   at every width: right of centre where the frame is wide, hard right on a
+   phone where it shows only a slice, and near the top so a shallow, wide frame
+   loses the table rather than the turban. */
+.home-hero-plate {
+  /* The portrait cut on a phone: the turban is at its very top. */
+  object-position: 56% 0%;
+}
+
+@media (min-width: 768px) {
+  .home-hero-plate {
+    object-position: 92% 18%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero-plate {
+    object-position: 82% 18%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .home-hero-plate {
+    object-position: 76% 18%;
+  }
+}

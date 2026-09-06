@@ -1,4 +1,4 @@
-import { useId } from "react"
+import { Fragment, useId } from "react"
 import { motion, useReducedMotion } from "motion/react"
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -240,17 +240,22 @@ export const RevealWords = ({ text, className, delay = 0, accentFrom, accentClas
   return (
     <span className={className}>
       {words.map((word, i) => (
-        <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-bottom">
-          <motion.span
-            className={`inline-block ${accentFrom !== undefined && i >= accentFrom ? accentClassName : ""}`}
-            initial={{ y: "110%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 0.8, delay: delay + i * 0.08, ease: EASE }}
-          >
-            {word}
-            {i < words.length - 1 ? " " : ""}
-          </motion.span>
-        </span>
+        <Fragment key={`${word}-${i}`}>
+          <span className="inline-block overflow-hidden pb-[0.12em] align-bottom">
+            <motion.span
+              className={`inline-block ${accentFrom !== undefined && i >= accentFrom ? accentClassName : ""}`}
+              initial={{ y: "110%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 0.8, delay: delay + i * 0.08, ease: EASE }}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {/* The space lives between the line boxes, not inside them: a space
+              at the end of an inline-block is discarded, which ran the words
+              of the hero title together. */}
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </span>
   )

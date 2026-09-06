@@ -21,7 +21,7 @@
       property="og:description"
       content="Painting the people, places and stories of Punjab. Portraiture, historical painting, photography and art education."
     />
-    <meta property="og:image" content="https://gurpreetartist.com/gallery/opt/12-1600.webp" />
+    <meta property="og:image" content="https://gurpreetartist.com/gallery/opt/hero-1600.webp" />
     <meta property="og:url" content="https://gurpreetartist.com/" />
     <meta property="og:locale" content="en_IN" />
 
@@ -32,14 +32,24 @@
       name="twitter:description"
       content="Painting the people, places and stories of Punjab."
     />
-    <meta name="twitter:image" content="https://gurpreetartist.com/gallery/opt/12-1600.webp" />
+    <meta name="twitter:image" content="https://gurpreetartist.com/gallery/opt/hero-1600.webp" />
 
     <!-- Start the LCP image download before the JS bundle parses. -->
     <link
       rel="preload"
       as="image"
-      href="/gallery/opt/12-1600.webp"
-      imagesrcset="/gallery/opt/12-700.webp 700w, /gallery/opt/12-1600.webp 1600w, /gallery/opt/12-2400.webp 2400w"
+      media="(min-width: 768px)"
+      href="/gallery/opt/hero-1600.webp"
+      imagesrcset="/gallery/opt/hero-700.webp 700w, /gallery/opt/hero-1600.webp 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      media="(max-width: 767px)"
+      href="/gallery/opt/hero-tall-720.webp"
+      imagesrcset="/gallery/opt/hero-tall-450.webp 450w, /gallery/opt/hero-tall-720.webp 720w"
       imagesizes="100vw"
       fetchpriority="high"
     />
@@ -55,7 +65,7 @@
         "jobTitle": "Artist, Educator and Researcher",
         "description": "Painter, photographer and art educator working in oil, watercolour and acrylic, with a focus on Punjab's history, portraiture and folk culture.",
         "url": "https://gurpreetartist.com/",
-        "image": "https://gurpreetartist.com/gallery/opt/12-1600.webp",
+        "image": "https://gurpreetartist.com/gallery/opt/hero-1600.webp",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Bathinda",

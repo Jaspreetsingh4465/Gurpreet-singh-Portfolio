@@ -49,6 +49,9 @@ export const dims = {
   "12-face": [906, 1152],
   "12-paint": [3120, 1755],
   "15-studio": [2880, 3840],
+  /* The hero plate: the artist beside the Ranjit Singh canvas, recomposed wide
+     with the room falling to dark on the left where the type sits. */
+  hero: [1600, 900],
 };
 
 /**
@@ -131,7 +134,7 @@ export const hero = {
     "Through portraiture, painting and photography, I document the people, places " +
     "and traditions that shape Punjab’s visual memory.",
   photo: {
-    id: 12,
+    id: "hero",
     alt: "Gurpreet Singh holding a palette and brush beside his oil painting of Maharaja Ranjit Singh with a lion",
   },
 };

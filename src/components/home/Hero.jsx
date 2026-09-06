@@ -13,27 +13,41 @@ export const Hero = () => {
   // Slow drift on the photograph as the hero leaves, driven by a motion value
   // rather than a scroll listener.
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "12%"])
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "8%"])
 
   return (
     <section
       id="top"
       ref={ref}
-      className="relative isolate flex min-h-[calc(100dvh-5rem)] flex-col justify-center overflow-hidden"
+      className="relative isolate flex min-h-[calc(100dvh-5rem)] flex-col justify-end overflow-hidden md:justify-center"
     >
-      <motion.img
-        src={art.src}
-        srcSet={`${art.srcSet}, /gallery/opt/${hero.photo.id}-2400.webp 2400w`}
-        sizes="100vw"
-        width={dims[hero.photo.id][0]}
-        height={dims[hero.photo.id][1]}
-        alt={hero.photo.alt}
-        fetchPriority="high"
-        decoding="sync"
-        style={reduce ? undefined : { y }}
-        position="70% 22%"
-        className="absolute inset-0 -z-20 h-[112%] w-full object-cover"
-      />
+      {/* The plate is wide, so at most viewports it crops only at the sides.
+          Its anchor (in CSS, .home-hero-plate) keeps the head and turban in
+          frame at every width: held right of centre on desktop, hard right on
+          a phone where the frame is a narrow slice of the picture. The extra
+          height is the room the scroll drift needs. */}
+      <picture className="contents">
+        {/* A phone shows a slice of the plate, so it gets a portrait cut of the
+            same photograph, the artist and the painting's face, rather than
+            the wide plate cropped down to nothing. */}
+        <source
+          media="(max-width: 767px)"
+          srcSet="/gallery/opt/hero-tall-450.webp 450w, /gallery/opt/hero-tall-720.webp 720w"
+          sizes="100vw"
+        />
+        <motion.img
+          src={art.src}
+          srcSet={art.srcSet}
+          sizes="100vw"
+          width={dims[hero.photo.id][0]}
+          height={dims[hero.photo.id][1]}
+          alt={hero.photo.alt}
+          fetchPriority="high"
+          decoding="sync"
+          style={reduce ? undefined : { y }}
+          className="home-hero-plate absolute inset-0 -z-20 h-[108%] w-full object-cover"
+        />
+      </picture>
 
       {/* The scrim is lighter over the painting than before so it stays part of
           the picture; the left third is where the type needs the contrast. */}
@@ -50,28 +64,11 @@ export const Hero = () => {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, rgba(14,12,10,.82) 0%, rgba(14,12,10,.66) 45%, rgba(14,12,10,.9) 100%)",
+            "linear-gradient(180deg, rgba(14,12,10,.28) 0%, rgba(14,12,10,.42) 34%, rgba(14,12,10,.9) 62%, rgba(14,12,10,.97) 100%)",
         }}
       />
 
-      {/* Quiet archival annotation, closer to a museum label than a UI badge. */}
-      <Reveal
-        delay={0.9}
-        className="pointer-events-none absolute top-24 right-6 hidden text-right md:block lg:right-16"
-      >
-        <p className="text-[10px] leading-[1.9] tracking-[0.25em] text-ivory/40 uppercase">
-          People
-          <br />
-          Places
-          <br />
-          Culture
-          <br />
-          Memory
-        </p>
-        <p className="mt-4 text-[10px] tracking-[0.25em] text-gold-light/70 uppercase">01 / 30 &middot; Archive</p>
-      </Reveal>
-
-      <div className="px-6 pt-20 pb-16 md:px-16 lg:px-20">
+      <div className="px-6 pt-20 pb-20 md:px-16 md:pb-16 lg:px-20">
         <div className="max-w-2xl">
           <motion.p
             initial={reduce ? false : { opacity: 0 }}
