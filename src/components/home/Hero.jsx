@@ -31,7 +31,8 @@ export const Hero = () => {
         fetchPriority="high"
         decoding="sync"
         style={reduce ? undefined : { y }}
-        className="absolute inset-0 -z-20 h-[112%] w-full object-cover object-[74%_20%] md:object-[70%_24%]"
+        position="70% 22%"
+        className="absolute inset-0 -z-20 h-[112%] w-full object-cover"
       />
 
       {/* The scrim is lighter over the painting than before so it stays part of
@@ -53,6 +54,23 @@ export const Hero = () => {
         }}
       />
 
+      {/* Quiet archival annotation, closer to a museum label than a UI badge. */}
+      <Reveal
+        delay={0.9}
+        className="pointer-events-none absolute top-24 right-6 hidden text-right md:block lg:right-16"
+      >
+        <p className="text-[10px] leading-[1.9] tracking-[0.25em] text-ivory/40 uppercase">
+          People
+          <br />
+          Places
+          <br />
+          Culture
+          <br />
+          Memory
+        </p>
+        <p className="mt-4 text-[10px] tracking-[0.25em] text-gold-light/70 uppercase">01 / 30 &middot; Archive</p>
+      </Reveal>
+
       <div className="px-6 pt-20 pb-16 md:px-16 lg:px-20">
         <div className="max-w-2xl">
           <motion.p
@@ -65,7 +83,7 @@ export const Hero = () => {
           </motion.p>
 
           <h1 className="display mt-7 max-w-[14ch] text-[clamp(3rem,6.2vw,5rem)] leading-[1.04] text-ivory">
-            <RevealWords text={hero.title} delay={0.15} />
+            <RevealWords text={hero.title} delay={0.15} accentFrom={2} />
           </h1>
 
           <Reveal delay={0.6}>
@@ -91,6 +109,13 @@ export const Hero = () => {
           </Reveal>
         </div>
       </div>
+
+      <Reveal delay={1.1} className="pointer-events-none absolute bottom-8 left-6 md:left-16">
+        <span className="flex items-center gap-3 text-[10px] tracking-[0.28em] text-ivory/45 uppercase">
+          Scroll to discover
+          <span aria-hidden="true" className="h-px w-8 bg-ivory/30" />
+        </span>
+      </Reveal>
     </section>
   )
 }

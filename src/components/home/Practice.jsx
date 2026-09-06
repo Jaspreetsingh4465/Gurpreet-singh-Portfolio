@@ -1,30 +1,72 @@
-import { Reveal } from "../ui/reveal"
+import { Link } from "react-router"
+import { ArrowRight } from "@phosphor-icons/react"
+import { Reveal, RevealImage } from "../ui/reveal"
+import { Photo } from "../ui/photo"
 import { practice } from "../../content/site"
 
 /**
- * Six bodies of work as a two-column index: the name carries the weight, one
- * sentence says what the work is for. No icons, no boxes.
+ * Six bodies of work as a three-by-two grid of photographs. Each caption is a
+ * single row: the name, the number, the line about the work, and the arrow
+ * through to it. The hairline sits above each caption and nowhere else, so the
+ * grid reads as six plates rather than a bordered table.
+ *
+ * On the ivory ground the accent is the same gold as the dark sections; only
+ * the text colours invert.
  */
 export const Practice = () => (
   <section id="practice" className="bg-ivory">
-    <div className="mx-auto max-w-6xl px-6 pb-24 md:pb-32 lg:px-8">
+    <div className="mx-auto max-w-[84rem] px-6 pt-20 pb-24 md:pt-24 md:pb-28 lg:px-8 2xl:max-w-[100rem] 2xl:px-16">
       <Reveal>
-        <div className="h-px w-16 rule-gold" aria-hidden="true" />
-        <h2 className="display mt-6 text-[clamp(2.6rem,4.4vw,3.5rem)] leading-[1.08] text-charcoal">
-          {practice.heading}
-        </h2>
+        <div className="h-px w-14 bg-gold/60" aria-hidden="true" />
+        <div className="mt-6 flex flex-wrap items-baseline gap-x-8 gap-y-3">
+          <h2 className="display text-[clamp(2.2rem,3.4vw,3rem)] leading-[1.08] text-charcoal">{practice.heading}</h2>
+          <p className="border-charcoal/15 text-[10.5px] leading-[1.9] tracking-[0.26em] text-charcoal/45 uppercase sm:border-l sm:pl-8">
+            {practice.subtitle.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
+        </div>
       </Reveal>
 
-      <ul className="mt-14 grid gap-x-20 md:grid-cols-2">
+      <ol className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {practice.items.map((item, i) => (
           <li key={item.title}>
-            <Reveal delay={(i % 2) * 0.06} className="border-t border-charcoal/12 py-9">
-              <h3 className="display text-[1.75rem] leading-tight text-charcoal">{item.title}</h3>
-              <p className="mt-3 max-w-[44ch] text-[16px] leading-[1.7] text-charcoal/60">{item.desc}</p>
+            <RevealImage delay={(i % 3) * 0.06} className="aspect-[4/3] w-full" curtain="bg-ivory">
+              <Photo
+                id={item.photo.id}
+                alt={item.photo.alt}
+                width={1600}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                className="h-full w-full object-cover"
+              />
+            </RevealImage>
+
+            <Reveal delay={(i % 3) * 0.06 + 0.08} className="mt-5 border-t border-charcoal/15 pt-4">
+              <div className="flex items-baseline justify-between gap-4">
+                <h3 className="display text-[1.3rem] leading-tight text-charcoal">{item.title}</h3>
+                <span className="text-[11px] tracking-[0.22em] text-gold">{item.n}</span>
+              </div>
+
+              <div className="mt-2 flex items-start justify-between gap-6">
+                <p className="max-w-[34ch] text-[14.5px] leading-[1.6] text-charcoal/60">{item.desc}</p>
+                <Link
+                  to={item.to}
+                  aria-label={`See ${item.title}`}
+                  className="group shrink-0 pt-1 text-gold transition-colors hover:text-charcoal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+                >
+                  <ArrowRight
+                    size={16}
+                    aria-hidden="true"
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
+              </div>
             </Reveal>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   </section>
 )

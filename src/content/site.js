@@ -36,10 +36,53 @@ export const dims = {
   17: [820, 983],
   18: [640, 424],
   19: [936, 357],
+  tools: [1600, 1200],
+  places: [1600, 1200],
+  "12-detail": [1600, 1200],
+  "16-face": [1600, 1200],
+  "4-detail": [1600, 1200],
+  "5-stage": [1600, 1200],
+  "14-trail": [1600, 900],
+  "14-vale": [1600, 1200],
+  "4-canvas": [1600, 1200],
   "12-lion": [1913, 2151],
   "12-face": [906, 1152],
   "12-paint": [3120, 1755],
   "15-studio": [2880, 3840],
+};
+
+/**
+ * Where each photograph should be anchored when a frame crops it.
+ *
+ * Every frame on the site is a fixed aspect, so a portrait source in a wide
+ * frame (or the reverse) loses most of its height or width. Centring by
+ * default cut heads off. These are the subject's position in the source, given
+ * once here so a photograph crops correctly on every page that uses it rather
+ * than being corrected component by component.
+ *
+ * Ids that are already crops (5-stage, 4-canvas, 14-trail and the rest) are
+ * absent on purpose: they are framed, so they take the centre.
+ */
+export const focal = {
+  1: "50% 38%",
+  2: "50% 45%",
+  3: "50% 32%",
+  4: "35% 45%",
+  5: "50% 45%",
+  6: "50% 42%",
+  7: "50% 26%",
+  8: "50% 24%",
+  9: "50% 38%",
+  10: "50% 30%",
+  11: "50% 50%",
+  12: "62% 38%",
+  13: "50% 22%",
+  14: "50% 28%",
+  15: "50% 45%",
+  16: "50% 38%",
+  17: "50% 32%",
+  18: "50% 45%",
+  19: "50% 50%",
 };
 
 export const img = (id, { width = 700 } = {}) => ({
@@ -103,7 +146,7 @@ export const archive = {
   intro: "A growing visual record of people, places, objects and moments.",
   frames: [
     { id: 1, alt: "Gurpreet Singh reading among stacked canvases, black and white", label: "Archival" },
-    { id: "12-lion", alt: "Detail of a lion from an oil painting", label: "Painting detail" },
+    { id: "4-detail", alt: "Painted detail of a wolf on weathered boards", label: "Painting detail" },
     { id: 10, alt: "Three artists standing together outside a venue", label: "Portrait" },
     { id: 6, alt: "A staged folk performance in traditional dress", label: "Gathering" },
     { id: 14, alt: "A figure walking a forest trail", label: "Landscape" },
@@ -129,6 +172,49 @@ export const about = {
   },
 };
 
+/**
+ * Everything the opening practice statement needs beyond `about`: the numbered
+ * eyebrow, the four words that run down the left edge, the pull quote, the
+ * labelled index frames on the right and the vertical caption that closes the
+ * composition. Kept separate from `about` so the /about page is untouched.
+ */
+export const practiceFeature = {
+  index: "01",
+  eyebrow: "The practice",
+  words: ["People", "Places", "Culture", "Memory"],
+  quote: {
+    line: "People, places and moments are a continuing inspiration.",
+    attribution: site.name,
+  },
+  lead: {
+    photo: {
+      id: "15-studio",
+      alt: "Gurpreet Singh at his drafting table in the studio, drawing with a fine brush",
+    },
+    label: ["Studio", "Work"],
+    year: "2021",
+    counter: { current: "01", total: "05" },
+  },
+  frames: [
+    {
+      n: "02",
+      label: "The tools",
+      photo: { id: "tools", alt: "Worn brushes in a paint-crusted jar beside pigment pots and a loaded palette" },
+    },
+    {
+      n: "03",
+      label: "Places",
+      photo: { id: "places", alt: "A weathered haveli courtyard seen through an open studded wooden door" },
+    },
+    {
+      n: "04",
+      label: "Painting detail",
+      photo: { id: "4-detail", alt: "Painted detail of a wolf on weathered boards" },
+    },
+  ],
+  caption: "A continuing visual record",
+}
+
 export const featured = {
   heading: "Where people become stories",
   intro:
@@ -138,76 +224,202 @@ export const featured = {
     photo: { id: 8, alt: "Portrait study of a young man in a peach turban and blue jacket" },
     caption: "Portrait study",
   },
+  /**
+   * `note` is the handwritten line that sits under each frame; `to` points at
+   * the matching category in /work. Photographs were chosen to show the work
+   * being made, the culture it records, and the places it is rooted in.
+   */
   categories: [
     {
+      n: "01",
       title: "Portraits",
       desc: "Faces carrying memory, character and time.",
-      photo: { id: 16, alt: "Gurpreet Singh at the easel, painting a portrait of a young maharaja in a yellow robe" },
+      note: "Art in process",
+      to: "/work/portraiture",
+      photo: { id: 7, alt: "Gurpreet Singh working close to the canvas with a fine brush" },
     },
     {
+      n: "02",
       title: "Cultural life",
       desc: "Celebrations, rituals and everyday moments that connect generations.",
-      photo: { id: 5, alt: "Folk performers lifted mid-dance on a lit stage" },
+      note: "People keep culture alive",
+      to: "/work/cultural",
+      photo: { id: "5-stage", alt: "Folk performers mid-dance on a lit stage, one lifted on another's shoulders" },
     },
     {
+      n: "03",
       title: "Places and landscapes",
       desc: "The architecture, streets and landscapes that give these stories a sense of place.",
-      photo: { id: 11, alt: "A gallery interior hung with paintings" },
+      note: "Where history stands",
+      to: "/work/landscape",
+      photo: { id: "places", alt: "A weathered haveli courtyard seen through an open studded wooden door" },
     },
   ],
 };
 
-/** Four large frames, deliberately unequal. */
+
+/**
+ * The parts of the "Where people become stories" section that sit outside the
+ * `featured` copy: the numbered eyebrow, the split headline, the marginal note
+ * beside the collage portrait, the vertical rail, and the closing quote band
+ * with its filmstrip.
+ */
+export const storiesSection = {
+  index: "02",
+  eyebrow: "People and places",
+  heading: { lead: "Where people become", accent: "stories" },
+  cta: "Explore the stories",
+  words: ["People", "Places", "Culture", "Memory"],
+  note: "Every person, place and moment carries a story worth remembering.",
+  rail: ["Art", "People", "Places", "Culture", "Memory"],
+  quote: {
+    line: "Art is a way of keeping people, places and moments alive.",
+    attribution: site.name,
+  },
+  caption: "A continuing visual record",
+  bleed: { id: 1, alt: "Gurpreet Singh reading among stacked canvases, black and white" },
+  strip: [
+    { id: 10, alt: "Three artists standing together outside a venue" },
+    { id: 14, alt: "A figure walking a forest trail" },
+  ],
+}
+
+/**
+ * Four plates on an even grid. Each carries a number, a one-word title, a line
+ * about what that part of the record holds, and a link to the page where more
+ * of it lives.
+ */
 export const essay = {
-  heading: "People. Places. Memory.",
+  heading: { lead: "People. Places.", accent: "Memory" },
   intro: "Every photograph holds a moment. Together, they form a record of a culture in motion.",
   frames: [
     {
       n: "01",
       label: "People",
+      desc: "Conversations, friendships and inspirations.",
+      to: "/archive",
       photo: { id: 17, alt: "Gurpreet Singh in a shawl, listening to an elder in conversation" },
     },
     {
       n: "02",
       label: "Place",
+      desc: "Studios, exhibitions and spaces that bring people together.",
+      to: "/exhibitions",
       photo: { id: 2, alt: "Artists gathered before a wall of paintings at a gallery opening" },
     },
     {
       n: "03",
       label: "Tradition",
+      desc: "Celebrations, recognitions and a shared cultural spirit.",
+      to: "/achievements",
       photo: { id: 3, alt: "An award presentation on stage at the Lalit Kala Akademi" },
     },
     {
       n: "04",
       label: "Memory",
-      photo: { id: 4, alt: "Gurpreet Singh beside his award-winning painting of animals on a red ground" },
+      desc: "Journeys, landscapes and the moments that stay with us.",
+      to: "/work",
+      photo: { id: "14-trail", alt: "A figure with a pack walking a stone trail through wooded hills" },
     },
   ],
 };
 
-export const manifesto = {
-  line: "In an age of rapid change, painting and photography become acts of remembering.",
-  body: "They preserve faces, places and fragments of everyday life before they disappear from view.",
+/**
+ * The frame around the four plates: the numbered eyebrow, the quote that
+ * closes the left rail, the studio frame held far back across the top right
+ * with its handwritten words, and the strip that closes the section.
+ */
+export const memorySection = {
+  index: "03",
+  eyebrow: "A visual journey",
+  quote: {
+    line: "Art lives through people, places and the moments in between.",
+    attribution: site.name,
+  },
+  ghost: { id: 1, alt: "" },
+  marginalia: ["Moments", "People", "Places", "Stories"],
+  caption: ["A continuing", "visual", "record"],
+  closing: {
+    words: ["People", "Places", "Culture", "Memory"],
+    line: "Stories live beyond time.",
+  },
 };
 
-export const practice = {
-  heading: "The work",
-  items: [
-    { title: "Portraiture", desc: "Faces, character and stories captured through painting and photography." },
-    { title: "Historical work", desc: "Visual interpretations of people, events and moments from the past." },
-    { title: "Cultural stories", desc: "Traditions, celebrations and communities documented through image." },
-    { title: "Landscape", desc: "Places shaped by memory, history and everyday life." },
-    { title: "Photography", desc: "A documentary record of people, objects and moments." },
-    { title: "Architecture", desc: "Buildings and spaces as witnesses to history." },
+/**
+ * The statement that opens the page's single light zone, and the frame around
+ * it: the numbered eyebrow, the word the line turns on, the taped studio print
+ * and the two word-rails in the right margin.
+ */
+export const manifesto = {
+  index: "04",
+  eyebrow: "The work",
+  lead: "In an age of rapid change, painting and photography become acts of",
+  accent: "remembering",
+  body: "They preserve faces, places and fragments of everyday life before they disappear from view.",
+  note: "Same people. Different times. Always a story.",
+  photo: { id: "15-studio", alt: "Gurpreet Singh drawing at his table, black and white" },
+  rails: [
+    ["People", "Places", "Culture", "Memory"],
+    ["Making", "Stories", "Visible"],
   ],
 };
 
-export const closing = {
-  photo: {
-    id: "12-paint",
-    alt: "Oil painting of Maharaja Ranjit Singh seated beside a lion, in warm gold light",
+/**
+ * Six bodies of work, in the order they are shown: each carries a photograph,
+ * a line about what the work is for, and a link to where more of it lives.
+ * Architecture has no category page of its own, so it opens the archive.
+ */
+export const practice = {
+  heading: "The work",
+  subtitle: ["Different mediums.", "A shared purpose."],
+  closing: {
+    note: "Art for a kinder tomorrow",
+    words: ["People", "Places", "Culture", "Memory"],
   },
-  caption: "Maharaja Ranjit Singh, oil on canvas",
+  items: [
+    {
+      n: "01",
+      title: "Portraiture",
+      desc: "Faces, character and stories captured through painting and photography.",
+      to: "/work/portraiture",
+      photo: { id: 16, alt: "Gurpreet Singh at the easel, painting a portrait of a young maharaja" },
+    },
+    {
+      n: "02",
+      title: "Cultural stories",
+      desc: "Traditions, celebrations and communities documented through image.",
+      to: "/work/cultural",
+      photo: { id: "5-stage", alt: "Folk performers mid-dance on a lit stage, one lifted on another’s shoulders" },
+    },
+    {
+      n: "03",
+      title: "Landscape",
+      desc: "Places shaped by memory, history and everyday life.",
+      to: "/work/landscape",
+      photo: { id: "14-vale", alt: "A wooded hillside above a stream, with a walker on the trail" },
+    },
+    {
+      n: "04",
+      title: "Photography",
+      desc: "A documentary record of people, objects and moments.",
+      to: "/work/photography",
+      photo: { id: 1, alt: "Gurpreet Singh reading among stacked canvases, black and white" },
+    },
+    {
+      n: "05",
+      title: "Architecture",
+      desc: "Buildings and spaces as witnesses to history.",
+      to: "/archive",
+      photo: { id: "places", alt: "A weathered haveli courtyard seen through an open studded door" },
+    },
+    {
+      n: "06",
+      title: "Historical work",
+      desc: "Visual interpretations of people, events and moments from the past.",
+      to: "/work/historical",
+      photo: { id: "4-canvas", alt: "Detail of the painting of animal heads mounted on weathered boards against red" },
+    },
+  ],
 };
 
 export const contact = {

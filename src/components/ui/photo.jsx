@@ -2,7 +2,7 @@
  * One <img> wrapper so every photo on the site gets the same treatment:
  * a WebP srcset, correct `sizes`, lazy-loading below the fold, and async decode.
  */
-import { img, dims } from "../../content/site"
+import { img, dims, focal } from "../../content/site"
 
 export const Photo = ({
   id,
@@ -10,6 +10,7 @@ export const Photo = ({
   className = "",
   width = 700,
   sizes = "(max-width: 640px) 100vw, 400px",
+  position,
   priority = false,
 }) => {
   const { src, srcSet } = img(id, { width })
@@ -23,6 +24,7 @@ export const Photo = ({
       sizes={sizes}
       alt={alt}
       className={className}
+      style={{ objectPosition: position ?? focal[id] ?? "50% 50%" }}
       loading={priority ? "eager" : "lazy"}
       // The hero image is the LCP element, so tell the browser to fetch it first.
       fetchPriority={priority ? "high" : "auto"}

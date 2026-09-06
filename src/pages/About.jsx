@@ -5,6 +5,7 @@ import { PageHero } from "../components/editorial/PageHero"
 import { SectionTitle } from "../components/editorial/SectionTitle"
 import { EditorialText } from "../components/editorial/EditorialText"
 import { ImageFeature } from "../components/editorial/ImageFeature"
+import { WorkCarousel } from "../components/editorial/WorkCarousel"
 import { QuoteBlock } from "../components/editorial/QuoteBlock"
 import { CategoryGrid } from "../components/editorial/CategoryGrid"
 import { Timeline } from "../components/editorial/Timeline"
@@ -71,20 +72,89 @@ export const About = () => (
       </Reveal>
     </section>
 
-    {/* 4. Punjab, memory and history: text, then the historical painting full width */}
-    <section className="bg-ivory">
-      <div className="mx-auto max-w-6xl px-6 pt-24 md:pt-32 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-          <SectionTitle tone="light" title={chapters.punjab.heading} />
-          <EditorialText tone="light" paragraphs={chapters.punjab.paragraphs} />
-        </div>
-      </div>
-      <div className="mt-16 pb-24 md:mt-20 md:pb-32">
-        <ImageFeature
-          photo={{ id: "12-paint", alt: "Oil painting of Maharaja Ranjit Singh seated beside a lion" }}
-          caption="Maharaja Ranjit Singh, oil on canvas. Historical narrative brought into a human context."
-          tone="light"
+    {/* 4. Punjab, memory and history: the statement, then the frames it draws on */}
+    <section className="relative overflow-hidden bg-ivory">
+      {/* Ground: two frames held far back in the margins, and the brushes at the right edge */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden 2xl:block">
+        <Photo
+          id="12-lion"
+          width={700}
+          sizes="20vw"
+          className="absolute top-8 -left-10 w-[18%] opacity-[0.09] grayscale [mask-image:radial-gradient(ellipse_at_60%_45%,black_5%,transparent_70%)]"
         />
+        <Photo
+          id="places"
+          width={700}
+          sizes="20vw"
+          className="absolute bottom-24 -left-6 w-[16%] opacity-[0.10] grayscale [mask-image:radial-gradient(ellipse_at_55%_50%,black_5%,transparent_68%)]"
+        />
+        <Photo
+          id="tools"
+          width={700}
+          sizes="18vw"
+          className="absolute right-0 bottom-10 w-[14%] opacity-[0.12] grayscale [mask-image:radial-gradient(ellipse_at_45%_50%,black_5%,transparent_68%)]"
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-[84rem] px-6 py-24 md:py-28 lg:px-8 2xl:max-w-[100rem] 2xl:px-28">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <Reveal>
+            <div className="flex items-center gap-5">
+              <span className="h-px w-10 bg-gold/60" aria-hidden="true" />
+              <ul className="flex flex-wrap items-center gap-x-3 text-[10.5px] tracking-[0.28em] text-charcoal/50 uppercase">
+                {chapters.punjab.words.map((w, i) => (
+                  <li key={w} className="flex items-center gap-3">
+                    {i > 0 && (
+                      <span className="text-gold/60" aria-hidden="true">
+                        /
+                      </span>
+                    )}
+                    {w}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <h2 className="display mt-7 max-w-[13ch] text-[clamp(2.3rem,4.2vw,3.7rem)] leading-[1.06] text-charcoal">
+              Punjab, memory and <span className="text-gold">history</span>
+            </h2>
+
+            <p className="mt-6 text-[11px] tracking-[0.3em] text-charcoal/45 uppercase">{chapters.punjab.label}</p>
+          </Reveal>
+
+          <Reveal delay={0.08} className="space-y-6 text-[15.5px] leading-[1.8] text-charcoal/70 lg:pt-2">
+            {chapters.punjab.paragraphs.map((p) => (
+              <p key={p.slice(0, 24)} className="max-w-[62ch]">
+                {p}
+              </p>
+            ))}
+          </Reveal>
+        </div>
+
+        <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+          <Reveal delay={0.12}>
+            <WorkCarousel
+              frames={chapters.punjab.frames}
+              label="Paintings and photographs from the Punjab strand of the work"
+            />
+          </Reveal>
+
+          <div aria-hidden="true" className="hidden w-32 shrink-0 pt-4 lg:block">
+            <p className="font-script -rotate-6 text-[21px] leading-[1.4] text-charcoal/40">
+              {chapters.punjab.note.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </p>
+            <ul className="mt-12 space-y-1.5 text-[9.5px] tracking-[0.26em] text-charcoal/40 uppercase">
+              {chapters.punjab.rail.map((w) => (
+                <li key={w}>{w}</li>
+              ))}
+            </ul>
+            <div className="mt-5 h-14 w-px bg-gradient-to-b from-gold/40 to-transparent" />
+          </div>
+        </div>
       </div>
     </section>
 

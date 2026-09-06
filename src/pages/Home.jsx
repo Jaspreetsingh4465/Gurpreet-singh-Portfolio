@@ -8,7 +8,6 @@ import { Essay } from "../components/home/Essay"
 import { Manifesto } from "../components/home/Manifesto"
 import { Practice } from "../components/home/Practice"
 import { Record } from "../components/home/Record"
-import { Closing } from "../components/home/Closing"
 import { Invitation } from "../components/home/Invitation"
 
 /** The approved home page. Its visual direction is the benchmark for every other page. */
@@ -27,7 +26,6 @@ export const Home = () => (
     <Manifesto />
     <Practice />
     <Record />
-    <Closing />
     <Invitation />
   </>
 )

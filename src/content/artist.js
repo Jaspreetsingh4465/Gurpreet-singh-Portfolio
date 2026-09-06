@@ -68,6 +68,48 @@ export const chapters = {
         "have, in different ways, become means of recording a region whose cultural " +
         "character continues to change.",
     ],
+    label: "A continuing narrative",
+    words: ["People", "Places", "Stories"],
+    rail: ["Art", "History", "Punjab", "Memory"],
+    note: ["Stories", "live longer", "in colour."],
+    /**
+     * Frames from the Punjab strand. Only the first is a catalogued work with a
+     * medium; the rest are captioned as what they are, a painting or a
+     * photograph, because no artwork titles, years or dimensions have been
+     * supplied. Do not add invented ones here.
+     */
+    frames: [
+      {
+        id: 12,
+        title: "Maharaja Ranjit Singh",
+        note: "Oil on canvas. Historical narrative brought into a human context.",
+        alt: "Gurpreet Singh holding a palette beside his oil painting of Maharaja Ranjit Singh with a lion",
+      },
+      {
+        id: "4-canvas",
+        title: "Award-winning canvas",
+        note: "Animal heads against red, painted on weathered boards.",
+        alt: "Painting of animal heads mounted on weathered boards against a red ground",
+      },
+      {
+        id: 16,
+        title: "Portrait at the easel",
+        note: "A young maharaja, painted in the studio.",
+        alt: "Gurpreet Singh at the easel, painting a portrait of a young maharaja",
+      },
+      {
+        id: "places",
+        title: "Heritage architecture",
+        note: "A weathered courtyard, photographed.",
+        alt: "A weathered haveli courtyard seen through an open studded wooden door",
+      },
+      {
+        id: "5-stage",
+        title: "Folk performance",
+        note: "Punjabi tradition, documented on stage.",
+        alt: "Folk performers mid-dance on a lit stage, one lifted on another's shoulders",
+      },
+    ],
   },
   educator: {
     heading: "The educator",
@@ -130,13 +172,13 @@ export const practiceCategories = [
     slug: "historical",
     title: "Historical painting",
     desc: "Narratives brought into a visual and human context, including the period of Maharaja Ranjit Singh.",
-    photo: { id: "12-paint", alt: "Oil painting of Maharaja Ranjit Singh with a lion" },
+    photo: { id: "4-canvas", alt: "Painting of animal heads mounted on weathered boards against red" },
   },
   {
     slug: "cultural",
     title: "Cultural painting",
     desc: "Sikh history, Punjabi traditions, architecture and a changing landscape.",
-    photo: { id: 5, alt: "Folk performers lifted mid-dance on a stage" },
+    photo: { id: "5-stage", alt: "Folk performers lifted mid-dance on a stage" },
   },
   {
     slug: "drawing",

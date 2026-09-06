@@ -7,6 +7,10 @@
 export const contactHero = {
   eyebrow: "Contact",
   title: "Start a conversation.",
+  /** The title split so the second half can carry the accent. */
+  titleParts: { lead: "Start", accent: "a conversation" },
+  note: ["Ideas", "Collaborations", "Exhibitions", "Conversations", "Always welcome."],
+  photo: { id: "tools", alt: "Worn brushes in a jar beside pigment pots on the studio desk" },
   body:
     "For exhibitions, collaborations, workshops, cultural projects, art education, " +
     "commissioned work, research conversations or general enquiries, get in touch.",
@@ -33,12 +37,33 @@ export const directContact = {
 };
 
 export const location = {
+  heading: "Based in Punjab",
   city: "Bathinda",
   region: "Punjab, India",
   note: "Studio visits by arrangement.",
 };
 
+/** What enquiries are welcome, shown beside the form. Icon keys map in the page. */
+export const openFor = [
+  { icon: "exhibitions", label: "Exhibitions" },
+  { icon: "workshops", label: "Workshops" },
+  { icon: "commissions", label: "Commissions" },
+  { icon: "research", label: "Research and conversations" },
+];
+
+/** A line about the way the work begins, set beside the form. */
+export const contactAside = {
+  socialHeading: "Let's keep in touch",
+  socialBody: "Follow the work and updates.",
+  quote: "Good conversations often lead to meaningful work.",
+};
+
 export const institutional = {
+  eyebrow: "Exhibitions",
+  cta: "View exhibitions",
+  note: ["Art", "builds", "bridges"],
+  photo: { id: 17, alt: "Gurpreet Singh in a shawl, listening to an elder in conversation" },
+  aside: { id: "places", alt: "" },
   heading: "Exhibitions and institutional enquiries",
   body:
     "Galleries, museums, universities, cultural bodies and festival organisers can use " +
@@ -55,8 +80,12 @@ export const socials = [
 ];
 
 export const closingCta = {
-  title: "Every conversation begins with a question.",
-  label: "Get in touch",
+  /** Split so the last phrase carries the accent, as the hero title does. */
+  title: { lead: "Every conversation begins with", accent: "a question" },
+  /** The site uses one label for the contact intent, the same one as the header. */
+  label: "Enquire",
+  rail: ["Art", "People", "Places", "Ideas"],
+  photo: { id: 1, alt: "" },
 };
 
 /**

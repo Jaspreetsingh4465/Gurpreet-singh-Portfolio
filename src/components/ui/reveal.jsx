@@ -58,7 +58,7 @@ export const RevealImage = ({ children, delay = 0, className = "", curtain = "bg
  * Headline that arrives one word at a time. Used once, on the hero, so the
  * page opens on a beat instead of appearing all at once.
  */
-export const RevealWords = ({ text, className, delay = 0 }) => {
+export const RevealWords = ({ text, className, delay = 0, accentFrom, accentClassName = "text-gold-light" }) => {
   const reduce = useReducedMotion()
   const words = text.split(" ")
   if (reduce) return <span className={className}>{text}</span>
@@ -67,7 +67,7 @@ export const RevealWords = ({ text, className, delay = 0 }) => {
       {words.map((word, i) => (
         <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-bottom">
           <motion.span
-            className="inline-block"
+            className={`inline-block ${accentFrom !== undefined && i >= accentFrom ? accentClassName : ""}`}
             initial={{ y: "110%" }}
             animate={{ y: "0%" }}
             transition={{ duration: 0.8, delay: delay + i * 0.08, ease: EASE }}
