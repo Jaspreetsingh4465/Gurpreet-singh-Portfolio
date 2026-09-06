@@ -9,8 +9,7 @@ export const SiteFooter = () => (
     <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8">
       <div className="grid gap-14 md:grid-cols-[1.3fr_0.7fr_1fr]">
         <div>
-          <p className="font-script text-4xl leading-none text-ivory">{site.name}</p>
-          <p className="mt-2 text-[10px] tracking-[0.3em] text-gold-light/80 uppercase">{site.role}</p>
+          <img src="/brand/logo.png" alt={site.name} className="h-20 w-auto object-contain" />
           <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-ivory/50">{site.tagline}</p>
           <SocialLinks className="mt-7" />
         </div>

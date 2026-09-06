@@ -54,10 +54,9 @@ export const SiteHeader = () => {
           : "border-transparent bg-gradient-to-b from-charcoal/70 to-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-8 px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-8 px-6 lg:px-8">
         <Link to="/" className={`shrink-0 leading-none ${ring}`} aria-label={`${site.name}, home`}>
-          <span className="font-script text-[1.7rem] leading-none text-ivory">{site.name}</span>
-          <span className="mt-1 block text-[9px] tracking-[0.3em] text-gold-light/80 uppercase">{site.role}</span>
+          <img src="/brand/logo.png" alt={site.name} className="h-14 w-auto object-contain md:h-16" />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-5 lg:flex">
@@ -119,8 +118,8 @@ export const SiteHeader = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[45] flex flex-col bg-charcoal px-6 pt-24 pb-10 lg:hidden"
           >
-            <div className="absolute top-0 right-0 left-0 flex h-16 items-center justify-between px-6">
-              <span className="font-script text-[1.7rem] leading-none text-ivory">{site.name}</span>
+            <div className="absolute top-0 right-0 left-0 flex h-20 items-center justify-between px-6">
+              <img src="/brand/logo.png" alt={site.name} className="h-12 w-auto object-contain" />
               <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className={`p-1 text-ivory ${ring}`}>
                 <X size={26} />
               </button>

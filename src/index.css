@@ -45,7 +45,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* The header is sticky and 4rem tall, so anchor targets would otherwise land
+/* The header is sticky and 5rem tall, so anchor targets would otherwise land
    underneath it. */
 [id] {
   scroll-margin-top: 5rem;

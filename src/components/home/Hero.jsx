@@ -19,7 +19,7 @@ export const Hero = () => {
     <section
       id="top"
       ref={ref}
-      className="relative isolate flex min-h-[calc(100dvh-4rem)] flex-col justify-center overflow-hidden"
+      className="relative isolate flex min-h-[calc(100dvh-5rem)] flex-col justify-center overflow-hidden"
     >
       <motion.img
         src={art.src}
