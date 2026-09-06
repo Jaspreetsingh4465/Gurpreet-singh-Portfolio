@@ -121,3 +121,698 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   The archive page.
+
+   Three ideas carry it. The opener is a full-bleed plate that holds the title,
+   the standfirst, the note and a short index of what the archive contains, all
+   set over one photograph. The wall below is two plates to a row on twelve
+   columns in a repeating two-row measure. And one line from the artist closes
+   the page over a drawn monument before the footer.
+--------------------------------------------------------------------------- */
+.ah-opener {
+  position: relative;
+  height: clamp(40rem, 88svh, 54rem);
+  overflow: hidden;
+  background: var(--color-charcoal);
+  isolation: isolate;
+}
+
+.ah-opener-photo {
+  position: absolute;
+  inset: -12% 0 0;
+  height: 112%;
+  will-change: transform;
+}
+
+.ah-opener-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ah-opener-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, var(--color-charcoal) 6%, --alpha(var(--color-charcoal) / 25%) 60%),
+    linear-gradient(90deg, --alpha(var(--color-charcoal) / 78%), --alpha(var(--color-charcoal) / 20%) 70%);
+}
+
+.ah-opener-type {
+  position: absolute;
+  right: 0;
+  bottom: clamp(2.5rem, 7vh, 4.5rem);
+  left: 0;
+  will-change: transform;
+}
+
+.ah-opener-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+}
+
+.ah-title {
+  margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.9rem, 7vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--color-ivory);
+}
+
+/* The second line carries the accent: gold at the left, warming out to ivory
+   by the full stop, so the title turns the corner into the page. */
+.ah-title-accent {
+  background: linear-gradient(
+    98deg,
+    var(--color-gold) 0%,
+    var(--color-gold-light) 38%,
+    var(--color-ivory-deep) 88%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ah-opener-grid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin-top: clamp(1.5rem, 3.5vw, 2.75rem);
+}
+
+.ah-standfirst {
+  max-width: 22ch;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(19px, 2vw, 25px);
+  line-height: 1.45;
+  color: --alpha(var(--color-ivory) / 92%);
+}
+
+.ah-opener-note {
+  max-width: 48ch;
+  font-size: 15px;
+  line-height: 1.75;
+  color: --alpha(var(--color-ivory) / 62%);
+}
+
+.ah-opener-index ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.ah-opener-index li {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-ivory) / 70%);
+}
+
+.ah-opener-index-rule {
+  height: 1px;
+  width: 3rem;
+  margin-bottom: 1.1rem;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+}
+
+@media (min-width: 900px) {
+  .ah-opener-grid {
+    grid-template-columns: repeat(12, 1fr);
+    align-items: start;
+  }
+  .ah-standfirst {
+    grid-column: 1 / span 5;
+  }
+  .ah-opener-note {
+    grid-column: 6 / span 4;
+  }
+  .ah-opener-index {
+    grid-column: 10 / span 3;
+    border-left: 1px solid --alpha(var(--color-ivory) / 15%);
+    padding-left: 1.1rem;
+  }
+}
+
+/* The filter rail. Uppercase and letterspaced so it reads as an instrument
+   rather than as a second navigation, with the count and the two ways of
+   drawing the wall held at the right. */
+.ah-rail {
+  position: sticky;
+  top: 5rem;
+  z-index: 20;
+  border-top: 1px solid --alpha(var(--color-gold) / 18%);
+  border-bottom: 1px solid --alpha(var(--color-ivory) / 12%);
+  background: --alpha(var(--color-charcoal) / 88%);
+  backdrop-filter: blur(14px);
+}
+
+.ah-rail-scroll {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 0.35rem;
+}
+
+.ah-rail-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.ah-filter {
+  position: relative;
+  flex: none;
+  padding-block: 0.3rem;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: --alpha(var(--color-ivory) / 45%);
+  touch-action: manipulation;
+  transition: color 0.3s ease;
+}
+
+.ah-filter::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-filter:hover {
+  color: var(--color-ivory);
+}
+
+.ah-filter-on {
+  color: var(--color-gold-light);
+}
+
+.ah-filter-on::after {
+  transform: scaleX(1);
+}
+
+.ah-filter:focus-visible,
+.ah-view:focus-visible,
+.ah-card-btn:focus-visible,
+.ah-row:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 3px;
+}
+
+.ah-count {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: --alpha(var(--color-gold-light) / 65%);
+}
+
+.ah-views {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.ah-view {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: --alpha(var(--color-ivory) / 32%);
+  transition: color 0.3s ease;
+}
+
+.ah-view:hover {
+  color: --alpha(var(--color-ivory) / 70%);
+}
+
+.ah-view-on {
+  color: var(--color-gold);
+}
+
+/* The hang. A wide plate and a narrow one, then a matched pair; the measure
+   repeats. Frames stretch to a common height within a row, which is what keeps
+   the caption rules running level across the page. */
+.ah-hang {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: clamp(0.9rem, 2vw, 1.6rem);
+  row-gap: clamp(1.4rem, 2.6vw, 2.25rem);
+}
+
+.ah-card {
+  display: flex;
+  grid-column: span 6;
+  --ar: 6 / 5.6;
+}
+
+.ah-card:nth-child(4n + 1) {
+  grid-column: span 7;
+  --ar: 7 / 5;
+}
+
+.ah-card:nth-child(4n + 2) {
+  grid-column: span 5;
+  --ar: 1 / 1;
+}
+
+.ah-card-btn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  background: var(--color-charcoal-800);
+  border: 1px solid --alpha(var(--color-ivory) / 9%);
+  transition:
+    border-color 0.45s ease,
+    background-color 0.45s ease;
+}
+
+.ah-card-btn:hover {
+  border-color: --alpha(var(--color-gold) / 45%);
+  background: var(--color-charcoal-700);
+}
+
+.ah-card-media {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  aspect-ratio: var(--ar);
+}
+
+.ah-frame {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--color-charcoal-800);
+}
+
+.ah-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-card-btn:hover .ah-frame img {
+  transform: scale(1.035);
+}
+
+/* The loupe is the visible affordance for the viewer. It sits on the plate at
+   two thirds strength and comes up to full on hover, so it never competes with
+   the photograph but is always there on a touch screen. */
+.ah-loupe {
+  position: absolute;
+  top: clamp(0.7rem, 1.2vw, 1rem);
+  right: clamp(0.7rem, 1.2vw, 1rem);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 9999px;
+  border: 1px solid --alpha(var(--color-ivory) / 22%);
+  background: --alpha(var(--color-charcoal) / 62%);
+  backdrop-filter: blur(8px);
+  color: --alpha(var(--color-ivory) / 80%);
+  opacity: 0.8;
+  transition:
+    opacity 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.ah-card-btn:hover .ah-loupe {
+  opacity: 1;
+  color: var(--color-ivory);
+  border-color: --alpha(var(--color-gold) / 60%);
+}
+
+.ah-card-foot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 5rem;
+  padding: clamp(0.95rem, 1.4vw, 1.2rem) clamp(1rem, 1.6vw, 1.35rem);
+  border-top: 1px solid --alpha(var(--color-ivory) / 8%);
+  transition: border-color 0.45s ease;
+}
+
+.ah-card-btn:hover .ah-card-foot {
+  border-top-color: --alpha(var(--color-gold) / 30%);
+}
+
+.ah-card-lines {
+  display: block;
+  min-width: 0;
+}
+
+.ah-card-caption {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.35;
+  color: --alpha(var(--color-ivory) / 88%);
+}
+
+.ah-card-tag {
+  display: block;
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-gold-light) / 62%);
+}
+
+.ah-card-arrow {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--color-gold-light);
+  opacity: 0.55;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-card-btn:hover .ah-card-arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+/* The list. The same wall set as a catalogue index rather than a hang. */
+.ah-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid --alpha(var(--color-ivory) / 10%);
+}
+
+.ah-list li {
+  border-bottom: 1px solid --alpha(var(--color-ivory) / 10%);
+}
+
+.ah-row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+  width: 100%;
+  padding: 0.85rem 0.5rem;
+  text-align: left;
+  transition: background-color 0.35s ease;
+}
+
+.ah-row:hover {
+  background: --alpha(var(--color-ivory) / 4%);
+}
+
+.ah-row-no {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: --alpha(var(--color-gold-light) / 55%);
+}
+
+.ah-row-thumb {
+  display: none;
+  overflow: hidden;
+  width: 6.5rem;
+  aspect-ratio: 3 / 2;
+  background: var(--color-charcoal-800);
+}
+
+.ah-row-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ah-row-caption {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: --alpha(var(--color-ivory) / 85%);
+}
+
+.ah-row-tags {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-ivory) / 38%);
+}
+
+.ah-row-arrow {
+  color: var(--color-gold-light);
+  opacity: 0.4;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-row:hover .ah-row-arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+@media (min-width: 700px) {
+  .ah-row {
+    grid-template-columns: 2.5rem 6.5rem 1fr auto auto;
+  }
+  .ah-row-thumb,
+  .ah-row-tags {
+    display: block;
+  }
+}
+
+/* The viewer. */
+.ah-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: clamp(3.5rem, 8vh, 5.5rem) clamp(1rem, 5vw, 4.5rem);
+  background: --alpha(var(--color-charcoal) / 96%);
+  backdrop-filter: blur(10px);
+}
+
+.ah-lb-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1rem, 2.5vh, 1.6rem) clamp(1rem, 4vw, 2.5rem);
+}
+
+.ah-lb-count {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: --alpha(var(--color-gold-light) / 70%);
+}
+
+.ah-lb-close,
+.ah-lb-step {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  border: 1px solid --alpha(var(--color-ivory) / 18%);
+  color: --alpha(var(--color-ivory) / 75%);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.ah-lb-close:hover,
+.ah-lb-step:hover {
+  color: var(--color-ivory);
+  border-color: --alpha(var(--color-gold) / 60%);
+  background: --alpha(var(--color-ivory) / 6%);
+}
+
+.ah-lb-close:focus-visible,
+.ah-lb-step:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 3px;
+}
+
+.ah-lb-step {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.ah-lb-prev {
+  left: clamp(0.5rem, 2vw, 1.75rem);
+}
+
+.ah-lb-next {
+  right: clamp(0.5rem, 2vw, 1.75rem);
+}
+
+.ah-lb-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: min(78rem, 100%);
+}
+
+.ah-lb-figure img {
+  max-height: min(72svh, 48rem);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.ah-lb-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.6rem 1.25rem;
+  text-align: center;
+}
+
+.ah-lb-text {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2vw, 21px);
+  color: --alpha(var(--color-ivory) / 88%);
+}
+
+.ah-lb-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-gold-light) / 60%);
+}
+
+/* One line from the artist, over a drawn monument that bleeds off the right
+   edge at watermark strength. */
+.ah-quote {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid --alpha(var(--color-gold) / 18%);
+  background: var(--color-charcoal);
+  padding-block: clamp(4.5rem, 11vw, 8rem);
+}
+
+.ah-quote-art {
+  position: absolute;
+  right: -5%;
+  bottom: -3%;
+  width: clamp(22rem, 46vw, 42rem);
+  color: var(--color-gold);
+  opacity: 0.17;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 45%);
+}
+
+.ah-quote-inner {
+  position: relative;
+  z-index: 1;
+  margin-inline: auto;
+  max-width: 66rem;
+  padding-inline: 1.5rem;
+  text-align: center;
+}
+
+.ah-quote-mark {
+  font-family: var(--font-serif);
+  font-size: clamp(2.75rem, 6vw, 4rem);
+  line-height: 0.6;
+  color: var(--color-gold);
+  opacity: 0.75;
+}
+
+.ah-quote-text {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.35rem, 2.7vw, 2.05rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--color-ivory);
+}
+
+.ah-quote-rule {
+  width: 3rem;
+  height: 1px;
+  margin: clamp(1.75rem, 3vw, 2.5rem) auto 0;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.ah-quote-by {
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-gold-light) / 80%);
+}
+
+@media (max-width: 899px) {
+  .ah-hang {
+    row-gap: clamp(1.25rem, 4vw, 2rem);
+  }
+  .ah-card,
+  .ah-card:nth-child(4n + 1),
+  .ah-card:nth-child(4n + 2) {
+    grid-column: span 12;
+    --ar: 3 / 2;
+  }
+  .ah-card-foot {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-frame img,
+  .ah-card-foot,
+  .ah-card-arrow,
+  .ah-row-arrow,
+  .ah-loupe {
+    transition: none;
+  }
+  .ah-card-btn:hover .ah-frame img,
+  .ah-card-btn:hover .ah-card-arrow,
+  .ah-row:hover .ah-row-arrow {
+    transform: none;
+  }
+}

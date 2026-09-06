@@ -1,50 +1,100 @@
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { ArrowRight, MagnifyingGlassPlus } from "@phosphor-icons/react"
+import { RevealImage } from "../ui/reveal"
 import { Photo } from "../ui/photo"
 
 /**
- * An archive wall. Items carry a size (wide / tall / square) that sets their
- * span on a 6-column grid, so proportions stay mixed whatever the filter
- * leaves. Filter changes animate with layout + fade, transform-only.
+ * The hang.
+ *
+ * Two plates to a row on a twelve-column field, in a two-row measure: a wide
+ * plate and a narrow one, then a matched pair. The measure repeats down the
+ * page, so the rhythm holds however many items the filter leaves behind, and
+ * the wall never falls into a single repeated card size.
+ *
+ * Column spans and frame proportions are set in CSS (.ah-card:nth-child) so the
+ * measure stays in one place. Within a row the frames stretch to a common
+ * height, which is what keeps the caption rules aligned across the page.
+ *
+ * Every plate is a button: the whole card opens the viewer, and the loupe in
+ * the corner is the visible affordance for it.
  */
-const SPAN = {
-  wide: { cell: "col-span-6 md:col-span-4", frame: "aspect-[3/2]" },
-  tall: { cell: "col-span-3 md:col-span-2", frame: "aspect-[3/4]" },
-  square: { cell: "col-span-3 md:col-span-2", frame: "aspect-square" },
-}
 
-export const ArchiveGrid = ({ items }) => {
-  const reduce = useReducedMotion()
+const Loupe = () => (
+  <span className="ah-loupe" aria-hidden="true">
+    <MagnifyingGlassPlus size={17} weight="regular" />
+  </span>
+)
+
+const Empty = () => (
+  <p className="py-24 text-center text-[15px] text-ivory/50">
+    Nothing under this filter yet. Choose another view.
+  </p>
+)
+
+export const ArchiveGrid = ({ items, onOpen }) => {
+  if (!items.length) return <Empty />
+
   return (
-    <motion.ul layout={!reduce} className="grid grid-flow-dense grid-cols-6 items-start gap-x-3 gap-y-8 md:gap-x-5 md:gap-y-10">
-      <AnimatePresence initial={false}>
-        {items.map((item, i) => (
-          <motion.li
-            key={item.id}
-            layout={!reduce}
-            initial={reduce ? false : { opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={reduce ? undefined : { opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: reduce ? 0 : Math.min(i, 8) * 0.02 }}
-            className={(SPAN[item.size] ?? SPAN.square).cell}
-          >
-            <figure className="group">
-              <div className={`w-full overflow-hidden bg-charcoal-800 ${(SPAN[item.size] ?? SPAN.square).frame}`}>
+    <ul className="ah-hang">
+      {items.map((item, i) => (
+        <li key={item.id} className="ah-card">
+          <button type="button" className="ah-card-btn" onClick={() => onOpen(i)}>
+            <span className="ah-card-media">
+              <RevealImage className="ah-frame" curtain="bg-charcoal">
                 <Photo
                   id={item.id}
                   alt={item.alt}
-                  width={item.size === "wide" ? 1600 : 700}
-                  sizes={item.size === "wide" ? "(max-width: 768px) 100vw, 760px" : "(max-width: 768px) 50vw, 380px"}
-                  className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                  width={1600}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 52vw, 640px"
+                  priority={i < 2}
                 />
-              </div>
-              <figcaption className="mt-2.5 flex items-baseline gap-3 text-[13px] text-ivory/45 transition-colors duration-300 group-hover:text-ivory/75">
-                <span className="h-px w-4 shrink-0 translate-y-[-0.3em] bg-gold/60" aria-hidden="true" />
-                {item.caption}
-              </figcaption>
-            </figure>
-          </motion.li>
-        ))}
-      </AnimatePresence>
-    </motion.ul>
+              </RevealImage>
+              <Loupe />
+            </span>
+
+            <span className="ah-card-foot">
+              <span className="ah-card-lines">
+                <span className="ah-card-caption">{item.caption}</span>
+                <span className="ah-card-tag">{item.tags[0]}</span>
+              </span>
+              <span className="ah-card-arrow" aria-hidden="true">
+                <ArrowRight size={16} weight="regular" />
+              </span>
+            </span>
+
+            <span className="sr-only">View larger: {item.alt}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/**
+ * The same wall as a reading list: numbered, one line to an item, with a small
+ * plate held at the left. It is the view for scanning what the archive holds
+ * rather than looking at it.
+ */
+export const ArchiveList = ({ items, onOpen }) => {
+  if (!items.length) return <Empty />
+
+  return (
+    <ol className="ah-list">
+      {items.map((item, i) => (
+        <li key={item.id}>
+          <button type="button" className="ah-row" onClick={() => onOpen(i)}>
+            <span className="ah-row-no">{String(i + 1).padStart(2, "0")}</span>
+            <span className="ah-row-thumb">
+              <Photo id={item.id} alt="" width={700} sizes="120px" />
+            </span>
+            <span className="ah-row-caption">{item.caption}</span>
+            <span className="ah-row-tags">{item.tags.join(" · ")}</span>
+            <span className="ah-row-arrow" aria-hidden="true">
+              <ArrowRight size={16} weight="regular" />
+            </span>
+            <span className="sr-only">View larger: {item.alt}</span>
+          </button>
+        </li>
+      ))}
+    </ol>
   )
 }

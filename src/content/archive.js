@@ -15,7 +15,31 @@ export const archiveFilters = [
   { key: "photography", label: "Photography" },
   { key: "paintings", label: "Paintings" },
   { key: "events", label: "Events" },
-];
+]
+
+/**
+ * The opening plate. Kept here rather than in the page so the words and the
+ * photograph that carries them are edited in one place.
+ */
+export const archiveOpener = {
+  eyebrow: "The archive",
+  title: { lead: "Kept,", accent: "not curated." },
+  standfirst: "A visual record of people, places and memory.",
+  intro:
+    "Paintings, photographs, events and encounters, kept together as one growing archive rather than a gallery of finished work. Some of it is finished work. Most of it is the room the work came out of.",
+  /** The short index set against the right edge of the plate. */
+  index: ["People", "Places", "Ideas", "Conversations", "A living archive"],
+  plate: {
+    id: 2,
+    alt: "Artists gathered before a wall of paintings at an opening",
+  },
+}
+
+/** The pause between the wall and the footer. */
+export const archiveQuote = {
+  text: "Every painting holds a story, and every story keeps a place alive.",
+  attribution: "Gurpreet Singh",
+}
 
 export const archiveItems = [
   { id: 12, alt: "Gurpreet Singh with palette and brush beside his painting of Maharaja Ranjit Singh", caption: "Beside the Maharaja Ranjit Singh canvas", tags: ["paintings", "history", "portraits"], size: "wide" },
@@ -39,4 +63,4 @@ export const archiveItems = [
   { id: 18, alt: "The artist seated among many of his framed paintings", caption: "Among the paintings", tags: ["paintings", "people"], size: "square" },
   { id: 14, alt: "Walking a forest trail with a camera bag", caption: "On the trail", tags: ["places", "photography"], size: "tall" },
   { id: 7, alt: "Painting at the easel in a red kurta", caption: "At work", tags: ["people", "paintings"], size: "square" },
-];
+]
