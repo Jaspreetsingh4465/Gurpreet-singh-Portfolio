@@ -14,7 +14,7 @@ const m = memorySection
  */
 const Plate = ({ frame, height, sizes, delay = 0 }) => (
   <li>
-    <RevealImage delay={delay} className={`aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-auto ${height}`}>
+    <RevealImage delay={delay} seed={frame.photo.id} className={`aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-auto ${height}`}>
       <Photo
         id={frame.photo.id}
         alt={frame.photo.alt}

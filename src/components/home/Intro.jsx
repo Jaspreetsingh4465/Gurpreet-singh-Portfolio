@@ -156,7 +156,7 @@ export const Intro = () => (
             {f.frames.map((frame, i) => (
               <li key={frame.n} className="lg:h-full">
                 <figure className="relative lg:h-full">
-                  <RevealImage delay={0.06 * i} className="aspect-[4/3] w-full lg:aspect-auto lg:h-full">
+                  <RevealImage delay={0.06 * i} seed={i + 1} className="aspect-[4/3] w-full lg:aspect-auto lg:h-full">
                     <Photo
                       id={frame.photo.id}
                       alt={frame.photo.alt}

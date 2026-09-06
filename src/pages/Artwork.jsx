@@ -73,7 +73,7 @@ export const Artwork = () => {
         {work.images?.length > 1 && (
           <ul className="mx-auto grid max-w-6xl gap-6 px-6 pb-24 sm:grid-cols-2 lg:px-8">
             {work.images.slice(1).map((im) => (
-              <li key={im.id}><RevealImage className="aspect-[4/3]"><Photo id={im.id} alt={im.alt} width={1600} sizes="(max-width: 640px) 100vw, 560px" className="h-full w-full object-cover" /></RevealImage></li>
+              <li key={im.id}><RevealImage seed={im.id} className="aspect-[4/3]"><Photo id={im.id} alt={im.alt} width={1600} sizes="(max-width: 640px) 100vw, 560px" className="h-full w-full object-cover" /></RevealImage></li>
             ))}
           </ul>
         )}

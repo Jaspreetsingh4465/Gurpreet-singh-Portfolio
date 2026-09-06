@@ -191,7 +191,7 @@ export const Journal = () => (
                   to={`/journal/${a.slug}`}
                   className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light"
                 >
-                  <RevealImage delay={(i % 3) * 0.06} className="aspect-[4/3]">
+                  <RevealImage delay={(i % 3) * 0.06} seed={i} className="aspect-[4/3]">
                     <Photo
                       id={a.cover.id}
                       alt={a.cover.alt}

@@ -12,7 +12,7 @@ export const ArtworkCard = ({ work, index = 0 }) => {
   return (
     <li>
       <Link to={`/work/${work.category}/${work.slug}`} className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light">
-        <RevealImage delay={(index % 3) * 0.06} className="aspect-[4/5] bg-charcoal-800">
+        <RevealImage delay={(index % 3) * 0.06} seed={index} className="aspect-[4/5] bg-charcoal-800">
           {cover ? (
             <Photo id={cover.id} alt={cover.alt} sizes="(max-width: 640px) 100vw, 360px" className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.03]" />
           ) : (

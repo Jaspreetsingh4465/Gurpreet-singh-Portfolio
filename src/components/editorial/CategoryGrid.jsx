@@ -20,7 +20,7 @@ export const CategoryGrid = ({ categories, linkBase, tone = "dark", counts, lead
         const lead = withLead && i === 0
         const body = (
           <>
-            <RevealImage delay={(i % 3) * 0.07} className={lead ? "aspect-[16/9]" : "aspect-[4/5]"}>
+            <RevealImage delay={(i % 3) * 0.07} seed={i} className={lead ? "aspect-[16/9]" : "aspect-[4/5]"}>
               <Photo
                 id={c.photo.id}
                 alt={c.photo.alt}

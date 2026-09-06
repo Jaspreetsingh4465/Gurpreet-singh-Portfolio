@@ -9,7 +9,7 @@ const s = storiesSection
 /** Photographs in this section are printed: a warm paper mat, then the image. */
 const Print = ({ photo, sizes, width = 700, ratio = "aspect-[4/3]", pad = "p-2.5", delay = 0 }) => (
   <div className={`bg-ivory-deep ${pad}`}>
-    <RevealImage delay={delay} className={`${ratio} w-full`} curtain="bg-ivory-deep">
+    <RevealImage delay={delay} seed={photo.id} className={`${ratio} w-full`} curtain="bg-ivory-deep">
       <Photo id={photo.id} alt={photo.alt} width={width} sizes={sizes} className="h-full w-full object-cover" />
     </RevealImage>
   </div>

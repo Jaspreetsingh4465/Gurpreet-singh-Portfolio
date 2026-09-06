@@ -1171,3 +1171,17 @@ body {
     transform: none;
   }
 }
+
+/* The bar of light that crosses a print in the "sheen" reveal: a soft gold
+   band, skewed, that the wrapper carries once across the photograph. */
+.reveal-sheen {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    --alpha(var(--color-gold-light) / 55%) 35%,
+    --alpha(var(--color-ivory) / 85%) 50%,
+    --alpha(var(--color-gold-light) / 55%) 65%,
+    transparent
+  );
+  mix-blend-mode: screen;
+}

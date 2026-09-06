@@ -39,7 +39,7 @@ export const ArchiveGrid = ({ items, onOpen }) => {
         <li key={item.id} className="ah-card">
           <button type="button" className="ah-card-btn" onClick={() => onOpen(i)}>
             <span className="ah-card-media">
-              <RevealImage className="ah-frame" curtain="bg-charcoal">
+              <RevealImage className="ah-frame" curtain="bg-charcoal" seed={i}>
                 <Photo
                   id={item.id}
                   alt={item.alt}

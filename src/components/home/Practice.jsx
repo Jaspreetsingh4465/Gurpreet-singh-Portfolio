@@ -33,7 +33,7 @@ export const Practice = () => (
       <ol className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {practice.items.map((item, i) => (
           <li key={item.title}>
-            <RevealImage delay={(i % 3) * 0.06} className="aspect-[4/3] w-full" curtain="bg-ivory">
+            <RevealImage delay={(i % 3) * 0.06} seed={i} className="aspect-[4/3] w-full" curtain="bg-ivory">
               <Photo
                 id={item.photo.id}
                 alt={item.photo.alt}
