@@ -1,49 +1,98 @@
 import { Link } from "react-router"
-import { nav, site } from "../../content/site"
+import { ArrowRight, MapPin } from "@phosphor-icons/react"
+import { footer, nav, site } from "../../content/site"
+import { socials } from "../../content/contact"
 import { SocialLinks } from "../editorial/SocialLinks"
 
-const ring = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light"
+/**
+ * The footer.
+ *
+ * Set over the gold-on-black plate, in three columns divided by hairlines: the
+ * mark and what the studio is for, the pages, and where to find it. The base
+ * rule carries the notice, the profiles and the trading name.
+ *
+ * The plate is decorative, so it takes an empty alt and lazy-loads; every page
+ * carries this footer and none of it is above the fold.
+ */
+export const SiteFooter = () => {
+  const hasSocials = socials.some((s) => s.href)
 
-export const SiteFooter = () => (
-  <footer className="border-t border-gold/15 bg-charcoal-800">
-    <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8">
-      <div className="grid gap-14 md:grid-cols-[1.3fr_0.7fr_1fr]">
-        <div>
-          <img src="/brand/logo.png" alt={site.name} className="h-20 w-auto object-contain" />
-          <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-ivory/50">{site.tagline}</p>
-          <SocialLinks className="mt-7" />
+  return (
+    <footer className="sf">
+      <img
+        className="sf-plate"
+        src="/brand/footer-plate-2000.webp"
+        srcSet="/brand/footer-plate-1000.webp 1000w, /brand/footer-plate-2000.webp 2000w"
+        sizes="100vw"
+        width={2000}
+        height={769}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+      />
+      <div className="sf-scrim" aria-hidden="true" />
+
+      <div className="sf-inner">
+        <div className="sf-cols">
+          <div className="sf-brand">
+            <img src="/brand/logo.png" alt={site.name} className="sf-logo" />
+            <p className="sf-tagline">{site.tagline}</p>
+            <div className="sf-hair" aria-hidden="true" />
+            <p className="sf-motto">{footer.motto}</p>
+          </div>
+
+          <nav className="sf-col" aria-label="Footer">
+            <h2 className="sf-label">Pages</h2>
+            <div className="sf-label-rule" aria-hidden="true" />
+            <ul className="sf-nav">
+              {nav.map(({ to, label }) => (
+                <li key={to}>
+                  <Link to={to}>{label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="sf-col">
+            <h2 className="sf-label">Studio</h2>
+            <div className="sf-label-rule" aria-hidden="true" />
+
+            <p className="sf-place">
+              <MapPin size={17} weight="light" aria-hidden="true" />
+              {site.location}
+            </p>
+
+            <p className="sf-note">
+              Exhibitions, workshops, commissions and research conversations:{" "}
+              <Link to="/contact" className="sf-enquire">
+                enquire here.
+                <ArrowRight size={16} weight="light" aria-hidden="true" />
+              </Link>
+            </p>
+
+            <p className="sf-script" aria-hidden="true">
+              <span>{footer.script[0]}</span>
+              <span>{footer.script[1]}</span>
+            </p>
+          </div>
         </div>
 
-        <nav aria-label="Footer">
-          <h2 className="text-[11px] tracking-[0.26em] text-ivory/40 uppercase">Pages</h2>
-          <ul className="mt-6 space-y-3">
-            {nav.map(({ to, label }) => (
-              <li key={to}>
-                <Link to={to} className={`text-[15px] text-ivory/60 transition-colors hover:text-ivory ${ring}`}>
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div>
-          <h2 className="text-[11px] tracking-[0.26em] text-ivory/40 uppercase">Studio</h2>
-          <p className="mt-6 text-[15px] leading-relaxed text-ivory/60">{site.location}</p>
-          <p className="mt-3 text-[15px] leading-relaxed text-ivory/60">
-            Exhibitions, workshops, commissions and research conversations:{" "}
-            <Link to="/contact" className={`text-gold-light transition-colors hover:text-gold ${ring}`}>
-              enquire here
-            </Link>
-            .
+        <div className="sf-base">
+          <p className="sf-notice">
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
+          <div className="sf-base-end">
+            {hasSocials && (
+              <>
+                <SocialLinks className="sf-social" />
+                <span className="sf-base-div" aria-hidden="true" />
+              </>
+            )}
+            <p className="sf-trading">{site.professionalName}</p>
+          </div>
         </div>
       </div>
-
-      <div className="mt-16 flex flex-col gap-3 border-t border-ivory/10 pt-7 text-[13px] text-ivory/40 sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
-        <p>{site.professionalName}</p>
-      </div>
-    </div>
-  </footer>
-)
+    </footer>
+  )
+}

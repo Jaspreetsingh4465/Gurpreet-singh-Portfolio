@@ -721,70 +721,127 @@ body {
   color: --alpha(var(--color-gold-light) / 60%);
 }
 
-/* One line from the artist, over a drawn monument that bleeds off the right
-   edge at watermark strength. */
+/* One line from the artist, set over the gold-on-black plate. The plate is a
+   real image, so nothing here draws architecture: the section crops it, darkens
+   the middle enough to carry ivory type, and sets the words. */
 .ah-quote {
   position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
   overflow: hidden;
-  border-top: 1px solid --alpha(var(--color-gold) / 18%);
+  min-height: clamp(26rem, 44vw, 40rem);
+  padding: clamp(4.5rem, 9vw, 7.5rem) 1.5rem;
   background: var(--color-charcoal);
-  padding-block: clamp(4.5rem, 11vw, 8rem);
 }
 
-.ah-quote-art {
+.ah-quote-plate {
   position: absolute;
-  right: -5%;
-  bottom: -3%;
-  width: clamp(22rem, 46vw, 42rem);
-  color: var(--color-gold);
-  opacity: 0.17;
-  pointer-events: none;
-  mask-image: linear-gradient(90deg, transparent, #000 45%);
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 74%;
+}
+
+/* Enough ground under the words to hold ivory at AA without flattening the
+   light coming in from the top left. */
+.ah-quote-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(90% 72% at 48% 48%, --alpha(var(--color-charcoal) / 78%), transparent 68%),
+    linear-gradient(
+      180deg,
+      --alpha(var(--color-charcoal) / 45%),
+      transparent 26%,
+      --alpha(var(--color-charcoal) / 55%)
+    );
 }
 
 .ah-quote-inner {
   position: relative;
   z-index: 1;
-  margin-inline: auto;
-  max-width: 66rem;
-  padding-inline: 1.5rem;
+  max-width: 46rem;
   text-align: center;
 }
 
 .ah-quote-mark {
   font-family: var(--font-serif);
-  font-size: clamp(2.75rem, 6vw, 4rem);
-  line-height: 0.6;
-  color: var(--color-gold);
-  opacity: 0.75;
+  font-size: clamp(2.5rem, 4.4vw, 3.6rem);
+  line-height: 0.55;
+  color: var(--color-gold-light);
 }
 
 .ah-quote-text {
-  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  margin-top: clamp(1.75rem, 3.5vw, 2.75rem);
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.35rem, 2.7vw, 2.05rem);
-  line-height: 1.4;
+  font-size: clamp(1.4rem, 3.1vw, 2.75rem);
+  line-height: 1.3;
   letter-spacing: -0.01em;
-  text-wrap: balance;
   color: var(--color-ivory);
 }
 
+/* Wide enough and each clause takes a line, the way the plate is drawn.
+   Narrower and they run together and wrap on their own. */
+@media (min-width: 800px) {
+  .ah-quote-line {
+    display: block;
+  }
+}
+
 .ah-quote-rule {
-  width: 3rem;
-  height: 1px;
-  margin: clamp(1.75rem, 3vw, 2.5rem) auto 0;
-  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  display: block;
+  width: clamp(11rem, 17vw, 15rem);
+  height: auto;
+  margin: clamp(1.75rem, 3.5vw, 2.75rem) auto 0;
+  color: var(--color-gold);
 }
 
 .ah-quote-by {
-  margin-top: 1.5rem;
+  margin-top: clamp(1.25rem, 2.5vw, 1.85rem);
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: --alpha(var(--color-gold-light) / 80%);
+  color: var(--color-gold-light);
+}
+
+/* The themes, set quietly into the lower left of the plate the way a caption
+   sits in a margin. Decorative, so it stays out of the accessibility tree. */
+.ah-quote-index {
+  position: absolute;
+  bottom: clamp(2rem, 7vh, 4rem);
+  left: clamp(1.75rem, 4.5vw, 4.5rem);
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: none;
+  gap: 0.6rem;
+}
+
+.ah-quote-index li {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-ivory) / 30%);
+}
+
+@media (min-width: 1024px) {
+  .ah-quote-index {
+    display: grid;
+  }
+}
+
+@media (max-width: 799px) {
+  .ah-quote-plate {
+    object-position: 64% 100%;
+  }
 }
 
 @media (max-width: 899px) {
@@ -813,6 +870,304 @@ body {
   .ah-card-btn:hover .ah-frame img,
   .ah-card-btn:hover .ah-card-arrow,
   .ah-row:hover .ah-row-arrow {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The footer.
+
+   Set over the gold-on-black plate: three columns divided by hairlines, then a
+   base rule carrying the notice, the profiles and the trading name. The plate
+   is cropped toward its quiet left half on narrow screens so the stacked type
+   never sits on the architecture.
+--------------------------------------------------------------------------- */
+.sf {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-top: 1px solid --alpha(var(--color-gold) / 15%);
+  background: var(--color-charcoal);
+}
+
+.sf-plate {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 50%;
+}
+
+.sf-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    --alpha(var(--color-charcoal) / 93%),
+    --alpha(var(--color-charcoal) / 84%) 46%,
+    --alpha(var(--color-charcoal) / 77%)
+  );
+}
+
+.sf-inner {
+  position: relative;
+  z-index: 1;
+  margin-inline: auto;
+  max-width: 72rem;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 1.5rem clamp(1.75rem, 2.5vw, 2.5rem);
+}
+
+@media (min-width: 1024px) {
+  .sf-inner {
+    padding-inline: 2rem;
+  }
+}
+
+.sf-cols {
+  display: grid;
+  gap: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+@media (min-width: 900px) {
+  .sf-cols {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 4.5vw, 4rem);
+  }
+  /* The hairlines are the columns' own left edge, so they stretch to the tallest
+     column instead of being drawn as separate furniture. */
+  .sf-col {
+    border-left: 1px solid --alpha(var(--color-gold) / 22%);
+    padding-left: clamp(2rem, 4.5vw, 4rem);
+  }
+}
+
+.sf-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sf-logo {
+  width: clamp(13rem, 27vw, 24rem);
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.sf-tagline {
+  margin-top: clamp(1.5rem, 2.5vw, 2.25rem);
+  max-width: 24ch;
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.55;
+  color: --alpha(var(--color-ivory) / 88%);
+}
+
+.sf-hair {
+  width: 3.25rem;
+  height: 1px;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+}
+
+.sf-motto {
+  margin-top: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-gold-light) / 62%);
+}
+
+.sf-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+}
+
+.sf-label-rule {
+  width: 2.25rem;
+  height: 1px;
+  margin-top: 0.85rem;
+  background: --alpha(var(--color-gold) / 70%);
+}
+
+.sf-nav {
+  margin: clamp(1.75rem, 2.5vw, 2.25rem) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(0.7rem, 1.1vw, 1rem);
+}
+
+.sf-nav a {
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 1.2vw, 17px);
+  color: --alpha(var(--color-ivory) / 78%);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sf-nav a:hover {
+  color: var(--color-gold-light);
+}
+
+.sf-place {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 1.2vw, 17px);
+  color: --alpha(var(--color-ivory) / 88%);
+}
+
+.sf-place svg {
+  flex: none;
+  color: var(--color-gold-light);
+}
+
+.sf-note {
+  margin-top: 1.4rem;
+  max-width: 34ch;
+  font-size: 15px;
+  line-height: 1.7;
+  color: --alpha(var(--color-ivory) / 65%);
+}
+
+.sf-enquire {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-gold-light);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sf-enquire svg {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sf-enquire:hover {
+  color: var(--color-gold);
+}
+
+.sf-enquire:hover svg {
+  transform: translateX(4px);
+}
+
+/* The one line of script on the page besides the mark itself. Decorative, so
+   it is hidden from assistive tech rather than read out twice. */
+.sf-script {
+  margin-top: clamp(2rem, 3.5vw, 3rem);
+  font-family: var(--font-script);
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  line-height: 1.15;
+  color: --alpha(var(--color-gold-light) / 45%);
+}
+
+.sf-script span {
+  display: block;
+}
+
+.sf-script span + span {
+  padding-left: 1.6em;
+}
+
+.sf-base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-top: clamp(2.5rem, 4.5vw, 4rem);
+  padding-top: clamp(1.4rem, 2vw, 1.85rem);
+  border-top: 1px solid --alpha(var(--color-gold) / 28%);
+}
+
+.sf-notice,
+.sf-trading {
+  margin: 0;
+}
+
+.sf-notice {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: --alpha(var(--color-ivory) / 60%);
+}
+
+.sf-base-end {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.sf-social {
+  gap: 1.15rem;
+}
+
+.sf-social a {
+  color: --alpha(var(--color-gold-light) / 80%);
+}
+
+.sf-social a:hover {
+  color: var(--color-gold);
+}
+
+.sf-base-div {
+  width: 1px;
+  height: 1.1rem;
+  background: --alpha(var(--color-ivory) / 22%);
+}
+
+.sf-trading {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: --alpha(var(--color-gold-light) / 72%);
+}
+
+/* Stacked, the type runs down the middle of the plate, so the crop moves to the
+   quiet left half and the scrim closes up behind it. */
+@media (min-width: 900px) {
+  .sf-hair {
+    margin-top: auto;
+  }
+  .sf-tagline {
+    margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  }
+}
+
+@media (max-width: 899px) {
+  .sf-plate {
+    object-position: 22% 50%;
+  }
+  .sf-scrim {
+    background: linear-gradient(
+      90deg,
+      --alpha(var(--color-charcoal) / 92%),
+      --alpha(var(--color-charcoal) / 84%)
+    );
+  }
+  .sf-script span + span {
+    padding-left: 1.2em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-enquire svg,
+  .sf-nav a {
+    transition: none;
+  }
+  .sf-enquire:hover svg {
     transform: none;
   }
 }

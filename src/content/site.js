@@ -99,6 +99,13 @@ export const site = {
   url: "https://gurpreetartist.com",
 };
 
+/** Footer furniture: the two lines that are the footer's own, not the site's. */
+export const footer = {
+  motto: "Art preserves what matters",
+  /** Held as two lines so the script sets the way it is drawn on the plate. */
+  script: ["Punjab", "in every brushstroke"],
+};
+
 export const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },

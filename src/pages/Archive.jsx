@@ -179,7 +179,11 @@ export const Archive = () => {
         </div>
       </div>
 
-      <ArchiveQuote text={archiveQuote.text} attribution={archiveQuote.attribution} />
+      <ArchiveQuote
+        lines={archiveQuote.lines}
+        attribution={archiveQuote.attribution}
+        index={archiveQuote.index}
+      />
 
       <ArchiveLightbox items={items} index={open} onClose={() => setOpen(null)} onStep={step} />
     </>

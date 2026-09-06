@@ -35,10 +35,15 @@ export const archiveOpener = {
   },
 }
 
-/** The pause between the wall and the footer. */
+/**
+ * The pause between the wall and the footer. The line is held as two clauses
+ * so the break falls where the plate wants it on a wide screen; below that it
+ * wraps on its own.
+ */
 export const archiveQuote = {
-  text: "Every painting holds a story, and every story keeps a place alive.",
+  lines: ["Every painting holds a story,", "and every story keeps a place alive."],
   attribution: "Gurpreet Singh",
+  index: ["Art", "People", "Places", "Stories", "Alive"],
 }
 
 export const archiveItems = [
