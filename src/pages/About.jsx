@@ -4,7 +4,7 @@ import { Seo } from "../components/site/Seo"
 import { PageHero } from "../components/editorial/PageHero"
 import { SectionTitle } from "../components/editorial/SectionTitle"
 import { EditorialText } from "../components/editorial/EditorialText"
-import { ImageFeature } from "../components/editorial/ImageFeature"
+
 import { WorkCarousel } from "../components/editorial/WorkCarousel"
 import { QuoteBlock } from "../components/editorial/QuoteBlock"
 import { CategoryGrid } from "../components/editorial/CategoryGrid"
@@ -242,3 +242,4 @@ export const About = () => (
     </Wrap>
   </>
 )
+

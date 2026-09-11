@@ -9,7 +9,7 @@ export const TypeGrid = ({ items, tone = "light", columns = 3 }) => {
   const light = tone === "light"
   const cols = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-2 lg:grid-cols-3", 4: "sm:grid-cols-2 lg:grid-cols-4" }[columns]
   return (
-    <ul className={`grid gap-x-12 ${cols}`}>
+    <ul className={`depth-type-grid grid gap-x-12 ${cols}`}>
       {items.map((t, i) => (
         <li key={t}>
           <Reveal delay={(i % columns) * 0.04} className={`border-t py-5 ${light ? "border-charcoal/12" : "border-ivory/12"}`}>
@@ -20,3 +20,4 @@ export const TypeGrid = ({ items, tone = "light", columns = 3 }) => {
     </ul>
   )
 }
+

@@ -1,3 +1,4 @@
+import { ScrollJourney } from "../components/home/ScrollJourney"
 import { SelectedPractice } from "../components/home/SelectedPractice"
 import { Seo } from "../components/site/Seo"
 import { Hero } from "../components/home/Hero"
@@ -13,7 +14,7 @@ import { Invitation } from "../components/home/Invitation"
 
 /** The approved home page. Its visual direction is the benchmark for every other page. */
 export const Home = () => (
-  <>
+  <div className="home-content">
     <Seo
       description="Gurpreet Singh, Gurpreet Artist Bathinda: painter, art educator and researcher. Portraiture, historical and cultural painting, photography and Punjab’s visual memory."
       path="/"
@@ -25,10 +26,13 @@ export const Home = () => (
     <Intro />
     <FeaturedWork />
     <Essay />
+    <ScrollJourney />
     <Manifesto />
     <Practice />
     <Record />
     <Invitation />
-  </>
+  </div>
 )
+
+
 

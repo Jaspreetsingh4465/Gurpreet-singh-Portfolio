@@ -11,7 +11,7 @@ import { Gap } from "./Gap"
 export const Timeline = ({ items, tone = "dark", dated = true }) => {
   const light = tone === "light"
   return (
-    <ol className={`relative border-l ${light ? "border-charcoal/15" : "border-ivory/12"} ml-2 md:ml-0`}>
+    <ol className={`depth-timeline relative border-l ${light ? "border-charcoal/15" : "border-ivory/12"} ml-2 md:ml-0`}>
       {items.map((item, i) => (
         <li key={`${item.when}-${item.title}`} className={`relative pl-8 md:pl-12 ${dated ? "md:grid md:grid-cols-[9rem_1fr] md:gap-8" : ""}`}>
           <Reveal delay={Math.min(i, 6) * 0.05}>
@@ -41,3 +41,4 @@ export const Timeline = ({ items, tone = "dark", dated = true }) => {
     </ol>
   )
 }
+

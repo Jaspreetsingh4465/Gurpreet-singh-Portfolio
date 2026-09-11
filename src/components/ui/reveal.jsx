@@ -1,48 +1,31 @@
 import { Fragment, useId } from "react"
-import { motion, useReducedMotion } from "motion/react"
-
+import { motion } from "motion/react"
+import { useSceneMotion } from "../site/DepthProvider"
+import { ScrollDepth } from "./ScrollDepth"
 const EASE = [0.16, 1, 0.3, 1]
-const VIEW = { once: true, amount: 0.2 }
+const VIEW = { once: true, amount: 0.01, margin: "80px 0px 80px 0px" }
 
-/** Standard fade-and-rise used for text blocks. */
-export const Reveal = ({ children, delay = 0, className, y = 20 }) => {
-  const reduce = useReducedMotion()
-  return (
-    <motion.div
-      className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
-    >
-      {children}
-    </motion.div>
-  )
+// Keep content readable even after anchor jumps or fast scrolling. Animate
+// position only; an observer must never be responsible for making text visible.
+export const Reveal = ({ children, delay = 0, className, y = 16 }) => {
+  const reduce = useSceneMotion()
+  return <motion.div className={className}
+    initial={reduce ? false : { y, rotateX: 4 }}
+    whileInView={{ y: 0, rotateX: 0 }}
+    animate={reduce ? { y: 0, rotateX: 0 } : undefined}
+    style={{ transformPerspective: 1200 }}
+    viewport={{ once: true, amount: 0.05 }}
+    transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : Math.min(delay, 0.2), ease: EASE }}
+  >{children}</motion.div>
 }
 
-/**
- * Photographs arrive, they do not fade. Seven ways of uncovering a print, so
- * that no two neighbours on a page are revealed the same way:
- *
- *   curtain  a cloth lifts from the bottom edge while the print settles back
- *   wipe     the cloth is drawn off sideways and the print slides in behind it
- *   split    the cloth parts down the middle like a pair of curtains
- *   blinds   five slats open in turn, top to bottom
- *   rise     the print lifts into place under a hairline that draws across it
- *   tilt     the print tips up off the table into the frame
- *   sheen    the print fades up and a bar of light passes over it once
- *
- * Every one of them is transform-and-opacity only. An earlier version animated
- * clip-path, which the compositor cannot accelerate and which silently failed
- * to interpolate in the browser, leaving every photograph hidden; none of
- * these touch it.
- *
- * Which reveal a photograph gets: pass `variant` to choose; pass `seed` (an
- * index, an image id) to have one chosen deterministically, so a grid can walk
- * through the set with `seed={i}`; pass neither and one is chosen from the
- * component's position in the tree, which is stable between renders and
- * differs between siblings. Under reduced motion the print is simply there.
- */
+// The outer frame keeps its dimensions while the inner print reveals once.
+// Start just before entry so fast scrolling does not leave visible curtains.
+export const RevealImage = ({ className = "", ...props }) => (
+  <ScrollDepth className={className} direction={typeof props.seed === "number" && props.seed % 2 ? -1 : 1}>
+    <ImageReveal {...props} className="h-full w-full" />
+  </ScrollDepth>
+)
 export const REVEALS = ["curtain", "wipe", "split", "blinds", "rise", "tilt", "sheen"]
 
 const hash = (seed) => {
@@ -82,7 +65,7 @@ const V = {
   }),
 }
 
-export const RevealImage = ({
+const ImageReveal = ({
   children,
   delay = 0,
   className = "",
@@ -90,7 +73,7 @@ export const RevealImage = ({
   variant,
   seed,
 }) => {
-  const reduce = useReducedMotion()
+  const reduce = useSceneMotion()
   const id = useId()
   const kind = REVEALS.includes(variant) ? variant : REVEALS[hash(seed ?? id) % REVEALS.length]
 
@@ -99,6 +82,7 @@ export const RevealImage = ({
   const cover = `pointer-events-none absolute inset-0 ${curtain}`
   const frame = {
     className: `relative overflow-hidden ${className}`,
+    "data-image-reveal": kind,
     initial: "hidden",
     whileInView: "shown",
     viewport: VIEW,
@@ -229,34 +213,16 @@ export const RevealImage = ({
   }
 }
 
-/**
- * Headline that arrives one word at a time. Used once, on the hero, so the
- * page opens on a beat instead of appearing all at once.
- */
 export const RevealWords = ({ text, className, delay = 0, accentFrom, accentClassName = "text-gold-light" }) => {
-  const reduce = useReducedMotion()
-  const words = text.split(" ")
-  if (reduce) return <span className={className}>{text}</span>
-  return (
-    <span className={className}>
-      {words.map((word, i) => (
-        <Fragment key={`${word}-${i}`}>
-          <span className="inline-block overflow-hidden pb-[0.12em] align-bottom">
-            <motion.span
-              className={`inline-block ${accentFrom !== undefined && i >= accentFrom ? accentClassName : ""}`}
-              initial={{ y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 0.8, delay: delay + i * 0.08, ease: EASE }}
-            >
-              {word}
-            </motion.span>
-          </span>
-          {/* The space lives between the line boxes, not inside them: a space
-              at the end of an inline-block is discarded, which ran the words
-              of the hero title together. */}
-          {i < words.length - 1 ? " " : null}
-        </Fragment>
-      ))}
-    </span>
-  )
+  const reduce = useSceneMotion()
+  return <span className={className}>{text.split(" ").map((word, i, words) => (
+    <Fragment key={`${word}-${i}`}>
+      <motion.span className={`inline-block ${accentFrom !== undefined && i >= accentFrom ? accentClassName : ""}`}
+        initial={reduce ? false : { y: 12 }} animate={{ y: 0 }}
+        transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : Math.min(delay + i * 0.035, 0.35), ease: EASE }}>
+        {word}
+      </motion.span>{i < words.length - 1 ? " " : null}
+    </Fragment>
+  ))}</span>
 }
+

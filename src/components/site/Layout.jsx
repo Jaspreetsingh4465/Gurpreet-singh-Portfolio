@@ -1,3 +1,4 @@
+import { DepthProvider } from "./DepthProvider"
 import { Outlet, ScrollRestoration, useLocation } from "react-router"
 import { AnimatePresence } from "motion/react"
 import { SiteHeader } from "./SiteHeader"
@@ -18,7 +19,7 @@ import { PageTransition } from "./PageTransition"
 export const Layout = () => {
   const { pathname } = useLocation()
   return (
-    <div className="bg-charcoal">
+    <DepthProvider><div className="bg-charcoal">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-70 focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-charcoal"
@@ -36,6 +37,8 @@ export const Layout = () => {
       </main>
       <SiteFooter />
       <ScrollRestoration />
-    </div>
+    </div></DepthProvider>
   )
 }
+
+

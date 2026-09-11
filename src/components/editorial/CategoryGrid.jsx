@@ -15,7 +15,7 @@ import { Photo } from "../ui/photo"
 export const CategoryGrid = ({ categories, linkBase, tone = "dark", counts, lead: withLead = true }) => {
   const light = tone === "light"
   return (
-    <ul className="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="depth-category-grid grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
       {categories.map((c, i) => {
         const lead = withLead && i === 0
         const body = (
@@ -64,3 +64,4 @@ export const CategoryGrid = ({ categories, linkBase, tone = "dark", counts, lead
     </ul>
   )
 }
+
