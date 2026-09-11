@@ -1,5 +1,6 @@
 import { Seo } from "../components/site/Seo"
 import { PageHero } from "../components/editorial/PageHero"
+import { heroArtwork } from "../content/heroArtwork"
 import { SectionTitle } from "../components/editorial/SectionTitle"
 import { AwardTimeline } from "../components/editorial/AwardTimeline"
 import { Timeline } from "../components/editorial/Timeline"
@@ -24,7 +25,7 @@ const List = ({ heading, items, tone = "dark" }) => {
 export const Achievements = () => (
   <>
     <Seo title="Awards and honours" description="Recognition across painting, photography and cultural work, 1995 to 2022, with workshops, public art, professional leadership and collections." path="/achievements" image="/gallery/opt/3-1600.webp" />
-    <PageHero eyebrow="Awards and honours" title="Recognition across painting, photography and cultural work." lead="A chronology from 1995 onward. The early awards are kept beside the recent ones; the sequence is part of the story." />
+    <PageHero artwork={heroArtwork.achievements} eyebrow="Awards and honours" title="Recognition across painting, photography and cultural work." lead="A chronology from 1995 onward. The early awards are kept beside the recent ones; the sequence is part of the story." />
 
     <section className="bg-ivory">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32 lg:px-8">

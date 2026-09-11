@@ -1,5 +1,6 @@
 import { Seo } from "../components/site/Seo"
 import { PageHero } from "../components/editorial/PageHero"
+import { heroArtwork } from "../content/heroArtwork"
 import { CategoryGrid } from "../components/editorial/CategoryGrid"
 import { Reveal } from "../components/ui/reveal"
 import { workCategories, artworks } from "../content/work"
@@ -12,7 +13,7 @@ export const Work = () => {
   return (
     <>
       <Seo title="Work" description="Portraiture, historical and cultural painting, landscape, drawing, photography, hyperrealism and neo-surrealism by Gurpreet Singh." path="/work" image="/gallery/opt/8-1600.webp" />
-      <PageHero eyebrow="The work" title="A practice shaped by people, place and memory." lead="Eight bodies of work. Each begins with something seen: a face, a place, an event from the past." />
+      <PageHero artwork={heroArtwork.work} eyebrow="The work" title="A practice shaped by people, place and memory." lead="Eight bodies of work. Each begins with something seen: a face, a place, an event from the past." />
       <section className="bg-charcoal">
         <div className="mx-auto max-w-6xl px-6 py-24 md:py-32 lg:px-8">
           <CategoryGrid categories={workCategories} linkBase="/work" counts={counts} />

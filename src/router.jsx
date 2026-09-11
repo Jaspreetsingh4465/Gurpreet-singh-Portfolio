@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router"
 import { Layout } from "./components/site/Layout"
 import { Home } from "./pages/Home"
 import { NotFound } from "./pages/NotFound"
+import { BrandScreen } from "./components/site/BrandScreen"
+import { RouteError } from "./components/site/RouteError"
 
 // Home ships in the main bundle; every other page is its own chunk, loaded on
 // first visit. `lazy` resolves to the route's Component per React Router 7.
@@ -18,18 +20,13 @@ const pages = {
   Contact: () => import("./pages/Contact.jsx"),
 }
 const page = (name) => async () => ({ Component: (await pages[name]())[name] })
-const LoadingPage = () => (
-  <div role="status" className="grid min-h-svh place-content-center gap-4 bg-charcoal text-center text-ivory">
-    <p className="display text-3xl">Gurpreet Singh</p>
-    <p className="text-sm text-gold-light">Opening the gallery…</p>
-  </div>
-)
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    HydrateFallback: LoadingPage,
+    HydrateFallback: BrandScreen,
+    ErrorBoundary: RouteError,
     children: [
       { index: true, element: <Home /> },
       { path: "about", lazy: page("About") },

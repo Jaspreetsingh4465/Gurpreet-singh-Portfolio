@@ -1,6 +1,8 @@
 import { Link } from "react-router"
 import { ArrowRight } from "@phosphor-icons/react"
 import { Seo } from "../components/site/Seo"
+import { PageHero } from "../components/editorial/PageHero"
+import { heroArtwork } from "../content/heroArtwork"
 import { Reveal, RevealImage } from "../components/ui/reveal"
 import { Photo } from "../components/ui/photo"
 import { journalCategories, journalIntro, journalPage, articles } from "../content/journal"
@@ -46,62 +48,13 @@ export const Journal = () => (
       image="/gallery/opt/1-1600.webp"
     />
 
-    {/* Hero */}
-    <section className="relative overflow-hidden border-b border-gold/15 bg-charcoal">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block">
-        <Photo
-          id={j.hero.photo.id}
-          width={1600}
-          sizes="55vw"
-          className="h-full w-full object-cover opacity-[0.75]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/55 to-charcoal/10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent" />
-      </div>
-
-      <div className="relative mx-auto max-w-[84rem] px-6 pt-20 pb-16 md:pt-24 md:pb-20 lg:px-8 2xl:max-w-[100rem] 2xl:px-16">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
-          <div>
-            <Reveal>
-              <p className="text-[11px] tracking-[0.32em] text-gold uppercase">{j.hero.eyebrow}</p>
-
-              <h1 className="display mt-6 max-w-[14ch] text-[clamp(2.4rem,4.4vw,3.9rem)] leading-[1.06] text-ivory">
-                {j.hero.title.lead}
-                <br />
-                <span className="text-gold-light">
-                  {j.hero.title.accent}
-                  <span className="text-gold">.</span>
-                </span>
-              </h1>
-
-              <p className="mt-7 max-w-[44ch] text-[16.5px] leading-[1.75] text-ivory/60">{j.hero.lead}</p>
-
-              <span className="mt-10 block h-px w-14 bg-gold/50" aria-hidden="true" />
-
-              <ul className="mt-7 flex flex-wrap items-center gap-x-3 text-[10px] tracking-[0.26em] text-ivory/45 uppercase">
-                {j.hero.words.map((w, i) => (
-                  <li key={w} className="flex items-center gap-3">
-                    {i > 0 && (
-                      <span className="text-gold/50" aria-hidden="true">
-                        /
-                      </span>
-                    )}
-                    {w}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-
-          <div aria-hidden="true" className="relative hidden lg:block">
-            <p className="font-script absolute top-4 left-0 w-[15ch] -rotate-6 text-[22px] leading-[1.35] text-ivory/45">
-              {j.hero.note}
-            </p>
-            <Rail words={j.hero.rail} className="absolute top-6 right-0" />
-          </div>
-        </div>
-      </div>
-    </section>
+    <PageHero
+      eyebrow={j.hero.eyebrow}
+      title={<>{j.hero.title.lead}<br /><em>{j.hero.title.accent}.</em></>}
+      lead={j.hero.lead}
+      words={j.hero.words}
+      artwork={heroArtwork.journal}
+    />
 
     {/* 01 — what the journal is for */}
     <section className="relative overflow-hidden bg-ivory">

@@ -14,3 +14,18 @@
 @media(max-width:700px){.immersive-hero{padding:0 6%}.studio-topline{font-size:7px;letter-spacing:.08em;padding:18px 0}.studio-layout{grid-template-columns:1fr;padding:38px 0 25px;gap:25px}.studio-title{font-size:clamp(45px,10.9vw,72px);margin:22px 0}.studio-description{font-size:16px;margin:20px 0 25px}.studio-signature{margin-top:28px;font-size:28px}.studio-gallery{height:500px;margin:10px 0 0}.gallery-scene{inset:48px 0 120px}.gallery-frame{left:22%;width:57%}.gallery-coordinate{font-size:7px}.gallery-caption{left:0}.gallery-orbit{inset:12px 0 72px}.gallery-caption a{font-size:23px}.studio-bottom{font-size:8px;letter-spacing:.08em}.selected-practice{padding:62px 6%}.practice-heading{display:block;margin-bottom:35px}.practice-heading>a{width:max-content;margin-top:25px}.practice-cards{grid-template-columns:1fr;gap:36px}.practice-card:nth-child(n){padding-top:0}.practice-image{aspect-ratio:4/4}.practice-card-caption h3{font-size:25px}}
 @media(max-width:380px){.studio-gallery{height:430px}.gallery-frame{width:62%;left:19%}.studio-actions{gap:18px}.studio-signature{gap:15px}.studio-signature span{padding-left:15px}}
 @media(prefers-reduced-motion:reduce){.gallery-orbit{animation:none}.studio-primary:hover{transform:none}}
+
+/* A painting fills the atmosphere behind the rotating gallery. */
+.studio-art-backdrop { position: absolute; inset: 0; z-index: -3; pointer-events: none; }
+.studio-art-backdrop img { width: 100%; height: 100%; object-fit: cover; object-position: 65% 45%; opacity: .24; }
+.studio-art-backdrop::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #10110ff5, #10110fc2 43%, #10110f3d 80%), linear-gradient(0deg, #10110f, transparent 45%); }
+.studio-artist { display: flex; align-items: center; gap: 16px; margin-top: 30px; }
+.studio-artist > img { width: 64px; height: 72px; object-fit: cover; object-position: 45% 25%; padding: 3px; border: 1px solid #d5ba8260; transform: rotate(-6deg); }
+.depth-site .studio-artist .studio-signature { display: block; margin-top: 0; }
+.depth-site .studio-artist .studio-signature span { display: block; border: 0; padding: 3px 0 0; }
+@media (max-width: 760px) {
+  .studio-art-backdrop img { opacity: .28; object-position: 30% 30%; }
+  .studio-art-backdrop::after { background: linear-gradient(90deg, #10110fe6, #10110f70), linear-gradient(0deg, #10110f, transparent 70%); }
+  .studio-artist { margin-top: 18px; gap: 14px; }
+  .studio-artist > img { width: 46px; height: 54px; }
+}

@@ -2,6 +2,7 @@ import { Link } from "react-router"
 import { ArrowRight } from "@phosphor-icons/react"
 import { Seo } from "../components/site/Seo"
 import { PageHero } from "../components/editorial/PageHero"
+import { heroArtwork } from "../content/heroArtwork"
 import { SectionTitle } from "../components/editorial/SectionTitle"
 import { EditorialText } from "../components/editorial/EditorialText"
 
@@ -16,6 +17,13 @@ import {
   profile, chapters, pullQuote, practiceCategories, education, experience,
   specialisations, researchInterests, summary,
 } from "../content/artist"
+
+const profileFacts = [
+  { label: "Professional name", value: profile.professionalName },
+  { label: "Based in", value: profile.base },
+  { label: "Languages", value: profile.languages.join(", ") },
+  { label: "Exhibited in", value: profile.exhibitedIn.join(", ") },
+]
 
 const Wrap = ({ tone = "dark", children, className = "" }) => (
   <section className={`${tone === "light" ? "bg-ivory" : "bg-charcoal"} ${className}`}>
@@ -32,12 +40,23 @@ export const About = () => (
       image="/gallery/opt/15-studio-1600.webp"
     />
 
-    <PageHero
+    <PageHero artwork={heroArtwork.about}
       eyebrow="About the artist"
       title={profile.name}
       sub={profile.roles.join("  •  ")}
       lead="An ongoing relationship between people, place, history, observation and memory."
     />
+
+    <section id="artist-profile" aria-label="Artist profile" className="border-b border-gold/20 bg-charcoal-800">
+      <dl className="mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-6 px-6 py-8 lg:grid-cols-4 lg:px-8">
+        {profileFacts.map((fact, index) => (
+          <Reveal key={fact.label} delay={index * .04}>
+            <dt className="text-[9px] leading-relaxed tracking-[0.16em] text-gold-light uppercase">{fact.label}</dt>
+            <dd className="mt-2 text-[14px] leading-relaxed text-ivory/80 md:text-[15px]">{fact.value}</dd>
+          </Reveal>
+        ))}
+      </dl>
+    </section>
 
     {/* 1. The artist: prose beside a studio photograph */}
     <Wrap>

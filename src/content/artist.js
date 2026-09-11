@@ -197,7 +197,8 @@ export const practiceCategories = [
 export const education = [
   { degree: "M.A. in Drawing & Painting", institution: "Jiwaji University, Gwalior" },
   { degree: "M.A. in History of Fine Arts", institution: "Guru Nanak Dev University, Amritsar" },
-  { degree: "UGC-NET, Fine Arts", institution: null },
+  // This is a qualification, so it has no university line to fill in.
+  { degree: "UGC-NET qualified in Fine Arts" },
   { degree: "Chitra Visharad", institution: "Pracheen Kala Kendra, Chandigarh" },
   { degree: "B.A.", institution: "Guru Nanak Dev University, Amritsar" },
 ];

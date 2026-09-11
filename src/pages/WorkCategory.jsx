@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router"
 import { ArrowLeft } from "@phosphor-icons/react"
 import { Seo } from "../components/site/Seo"
 import { PageHero } from "../components/editorial/PageHero"
+import { categoryHeroArtwork } from "../content/heroArtwork"
 import { ImageFeature } from "../components/editorial/ImageFeature"
 import { ArtworkCard } from "../components/editorial/ArtworkCard"
 import { Reveal } from "../components/ui/reveal"
@@ -18,7 +19,7 @@ export const WorkCategory = () => {
   return (
     <>
       <Seo title={cat.title} description={`${cat.title} by Gurpreet Singh. ${cat.desc}`} path={`/work/${cat.slug}`} image={`/gallery/opt/${cat.photo.id}-1600.webp`} />
-      <PageHero eyebrow="The work" title={cat.title} lead={cat.desc} />
+      <PageHero artwork={categoryHeroArtwork(cat)} eyebrow="The work" title={cat.title} lead={cat.desc} />
 
       <section className="bg-charcoal pb-8 pt-4">
         <ImageFeature photo={cat.photo} caption={cat.title} />

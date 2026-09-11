@@ -17,7 +17,7 @@ export const ExhibitionTimeline = ({ groups, tone = "light" }) => {
             </div>
             <ul className="mt-7 space-y-4">
               {g.venues.map((v) => (
-                <li key={v.venue} className="grid grid-cols-[4rem_1fr] gap-4">
+                <li key={`${v.year ?? g.year ?? "undated"}-${v.venue}`} className="grid grid-cols-[4rem_1fr] gap-4">
                   <span className={`font-mono text-[13px] ${light ? "text-gold" : "text-gold-light"}`}>{v.year ?? ""}</span>
                   <span className={`text-[16px] leading-snug ${light ? "text-charcoal/75" : "text-ivory/70"}`}>{v.venue}</span>
                 </li>

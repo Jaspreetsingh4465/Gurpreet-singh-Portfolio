@@ -1,5 +1,6 @@
 import { Seo } from "../components/site/Seo"
 import { PageHero } from "../components/editorial/PageHero"
+import { heroArtwork } from "../content/heroArtwork"
 import { SectionTitle } from "../components/editorial/SectionTitle"
 import { ExhibitionTimeline } from "../components/editorial/ExhibitionTimeline"
 import { ImageFeature } from "../components/editorial/ImageFeature"
@@ -9,7 +10,7 @@ import { soloExhibitions, groupExhibitions } from "../content/record"
 export const Exhibitions = () => (
   <>
     <Seo title="Exhibitions" description="Solo exhibitions in India, Canada, Australia and the United States, and selected group exhibitions, by Gurpreet Singh." path="/exhibitions" image="/gallery/opt/4-1600.webp" />
-    <PageHero eyebrow="Exhibitions" title="A record of exhibitions, encounters and artistic exchange." lead="Solo exhibitions across four countries since 2008, and group exhibitions with the institutions that have shaped Punjab’s art scene." />
+    <PageHero artwork={heroArtwork.exhibitions} eyebrow="Exhibitions" title="A record of exhibitions, encounters and artistic exchange." lead="Solo exhibitions across four countries since 2008, and group exhibitions with the institutions that have shaped Punjab’s art scene." />
 
     <section className="bg-ivory">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32 lg:px-8">

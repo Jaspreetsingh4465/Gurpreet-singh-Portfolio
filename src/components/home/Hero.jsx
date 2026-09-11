@@ -5,6 +5,7 @@ import { Link } from "react-router"
 import { ArrowUpRight, ArrowLeft, ArrowRight, ArrowDown } from "@phosphor-icons/react"
 import { Reveal } from "../ui/reveal"
 import { workCategories } from "../../content/work"
+import { Photo } from "../ui/photo"
 import { dims, img } from "../../content/site"
 import "./immersive.css"
 const collection = [workCategories[0], workCategories[6], workCategories[1]]
@@ -77,6 +78,7 @@ export const Hero = () => {
  }
  const current = collection[active]
  return <section ref={heroRef} id="top" className={`immersive-hero ${paused ? "motion-paused" : ""}`}>
+  <div className="studio-art-backdrop" aria-hidden="true"><Photo id="12-paint" sizes="100vw" /></div>
   <div className="studio-glow" aria-hidden="true"/><div className="studio-grid" aria-hidden="true"/>
   <div className="studio-topline"><span>THE ART OF REMEMBERING</span><span>BATHINDA, PUNJAB · INDIA</span></div>
   <div className="studio-layout"><div className="studio-copy">
@@ -84,7 +86,7 @@ export const Hero = () => {
    <Reveal delay={.12}><h1 className="studio-title">A life in art.<br/><em>A world</em><br/>in every stroke<span>.</span></h1></Reveal>
    <Reveal delay={.24}><p className="studio-description">I’m Gurpreet Singh. Through paint, portraiture and the stories of Punjab, I preserve what time leaves behind.</p></Reveal>
    <Reveal delay={.32} className="studio-actions"><Link to="/work" className="studio-primary">Explore the collection <ArrowUpRight size={20}/></Link><Link to="/about" className="studio-secondary">Meet the artist <ArrowRight size={17}/></Link></Reveal>
-   <Reveal delay={.4}><div className="studio-signature">Gurpreet Singh <span>ARTIST, BATHINDA</span></div></Reveal>
+   <Reveal delay={.4}><div className="studio-artist"><Photo id="15-studio" alt="Gurpreet Singh at work in his studio" sizes="72px" /><div className="studio-signature">Gurpreet Singh <span>ARTIST, BATHINDA</span></div></div></Reveal>
   </div><div ref={galleryRef} className="studio-gallery" onPointerMove={move} onPointerLeave={reset} onFocusCapture={event => setFocused(event.target.matches(":focus-visible"))} onBlurCapture={e => { if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false) }}>
    <span className="gallery-coordinate" aria-hidden="true">A STUDY IN LIGHT, MEMORY & FORM</span><div className="gallery-orbit" aria-hidden="true"/>
    <motion.div className="gallery-scene" onPointerDown={swipeStart} onPointerUp={swipeEnd} onPointerCancel={() => { touchStart.current = null }} style={reduce || paused ? undefined : { rotateX, rotateY }}>

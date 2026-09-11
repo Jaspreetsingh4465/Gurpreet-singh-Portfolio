@@ -1,6 +1,8 @@
 import { Link } from "react-router"
 import { MapPin, Images, ChalkboardSimple, PaintBrush, ChatsCircle, ArrowRight } from "@phosphor-icons/react"
 import { Seo } from "../components/site/Seo"
+import { PageHero } from "../components/editorial/PageHero"
+import { heroArtwork } from "../content/heroArtwork"
 import { Gap } from "../components/editorial/Gap"
 import { SocialLinks } from "../components/editorial/SocialLinks"
 import { ContactForm } from "../components/contact/ContactForm"
@@ -51,51 +53,12 @@ export const Contact = () => {
         image="/gallery/opt/17-1600.webp"
       />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-gold/15 bg-charcoal">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-[55%] lg:block">
-          <Photo
-            id={contactHero.photo.id}
-            width={1600}
-            sizes="55vw"
-            className="h-full w-full object-cover opacity-[0.7]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/60 to-charcoal/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent" />
-        </div>
-
-        <div className="relative mx-auto max-w-[84rem] px-6 pt-20 pb-16 md:pt-24 md:pb-20 lg:px-8 2xl:max-w-[100rem] 2xl:px-16">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
-            <Reveal>
-              <div className="flex items-center gap-5">
-                <span className="text-[11px] tracking-[0.32em] text-gold uppercase">{contactHero.eyebrow}</span>
-                <span className="h-px w-14 bg-gold/50" aria-hidden="true" />
-              </div>
-
-              <h1 className="display mt-7 max-w-[12ch] text-[clamp(2.5rem,4.6vw,4.1rem)] leading-[1.05] text-ivory">
-                {contactHero.titleParts.lead}{" "}
-                <span className="text-gold-light">
-                  {contactHero.titleParts.accent}
-                  <span className="text-gold">.</span>
-                </span>
-              </h1>
-
-              <p className="mt-7 max-w-[48ch] text-[16.5px] leading-[1.75] text-ivory/60">{contactHero.body}</p>
-            </Reveal>
-
-            <p
-              aria-hidden="true"
-              className="font-script hidden -rotate-3 self-start pt-6 text-[22px] leading-[1.45] text-ivory/45 lg:block"
-            >
-              {contactHero.note.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={contactHero.eyebrow}
+        title={<>{contactHero.titleParts.lead} <em>{contactHero.titleParts.accent}.</em></>}
+        lead={contactHero.body}
+        artwork={heroArtwork.contact}
+      />
 
       {/* The form, and what the studio is open for */}
       <section id="enquiry-form" className="bg-charcoal">

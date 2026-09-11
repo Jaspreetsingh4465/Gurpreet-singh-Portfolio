@@ -1,9 +1,10 @@
 import { DepthProvider } from "./DepthProvider"
-import { Outlet, ScrollRestoration, useLocation } from "react-router"
+import { ScrollRestoration, useLocation, useNavigation, useOutlet } from "react-router"
 import { AnimatePresence } from "motion/react"
 import { SiteHeader } from "./SiteHeader"
 import { SiteFooter } from "./SiteFooter"
 import { PageTransition } from "./PageTransition"
+import { NavigationTransition } from "./NavigationTransition"
 
 /**
  * Shared shell. AnimatePresence keys the page on pathname so one page fades
@@ -18,6 +19,8 @@ import { PageTransition } from "./PageTransition"
  */
 export const Layout = () => {
   const { pathname } = useLocation()
+  const outlet = useOutlet()
+  const navigation = useNavigation()
   return (
     <DepthProvider><div className="bg-charcoal">
       <a
@@ -28,10 +31,11 @@ export const Layout = () => {
       </a>
       <div className="grain" aria-hidden="true" />
       <SiteHeader />
-      <main id="main">
+      <NavigationTransition />
+      <main id="main" aria-busy={navigation.state !== "idle"}>
         <AnimatePresence mode="wait">
           <PageTransition key={pathname}>
-            <Outlet />
+            {outlet}
           </PageTransition>
         </AnimatePresence>
       </main>
