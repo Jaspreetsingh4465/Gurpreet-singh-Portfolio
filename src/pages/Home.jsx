@@ -1,3 +1,4 @@
+import { SelectedPractice } from "../components/home/SelectedPractice"
 import { Seo } from "../components/site/Seo"
 import { Hero } from "../components/home/Hero"
 import { ArchiveStrip } from "../components/home/ArchiveStrip"
@@ -18,6 +19,7 @@ export const Home = () => (
       path="/"
     />
     <Hero />
+    <SelectedPractice />
     <ArchiveStrip />
     <Stats />
     <Intro />
@@ -29,3 +31,4 @@ export const Home = () => (
     <Invitation />
   </>
 )
+
