@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0e0c0a" />
 
@@ -35,24 +35,12 @@
     <meta name="twitter:image" content="https://gurpreetartist.com/gallery/opt/hero-1600.webp" />
 
     <!-- Start the LCP image download before the JS bundle parses. -->
-    <link
-      rel="preload"
-      as="image"
-      media="(min-width: 768px)"
-      href="/gallery/opt/hero-1600.webp"
-      imagesrcset="/gallery/opt/hero-700.webp 700w, /gallery/opt/hero-1600.webp 1600w"
-      imagesizes="100vw"
-      fetchpriority="high"
-    />
-    <link
-      rel="preload"
-      as="image"
-      media="(max-width: 767px)"
-      href="/gallery/opt/hero-tall-720.webp"
-      imagesrcset="/gallery/opt/hero-tall-450.webp 450w, /gallery/opt/hero-tall-720.webp 720w"
-      imagesizes="100vw"
-      fetchpriority="high"
-    />
+
+
+
+    <link rel="preload" as="image" href="/gallery/opt/8-700.webp"
+      imagesrcset="/gallery/opt/8-700.webp 700w, /gallery/opt/8-1600.webp 1600w"
+      imagesizes="(max-width:760px) 55vw,430px" fetchpriority="high" />
 
     <!-- Tells Google this is a person, not a company. Update sameAs with the
          real social profiles once they're live. -->
@@ -92,3 +80,4 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+

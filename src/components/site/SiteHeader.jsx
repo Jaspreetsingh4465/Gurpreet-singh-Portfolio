@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { Link, NavLink, useLocation } from "react-router"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
@@ -12,6 +12,8 @@ export const SiteHeader = () => {
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
   const reduce = useReducedMotion()
+  const menuRef = useRef(null)
+  const triggerRef = useRef(null)
 
   // Close the menu on navigation.
   useEffect(() => setOpen(false), [pathname])
@@ -19,13 +21,23 @@ export const SiteHeader = () => {
   // Escape closes; body scroll locks while the overlay is up.
   useEffect(() => {
     if (!open) return
-    const onKey = (e) => e.key === "Escape" && setOpen(false)
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false)
+      if (e.key !== "Tab") return
+      const controls = menuRef.current?.querySelectorAll('a[href], button')
+      if (!controls?.length) return
+      const first = controls[0], last = controls[controls.length - 1]
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+    }
+    menuRef.current?.querySelector("button")?.focus({ preventScroll: true })
     const previous = document.body.style.overflow
     document.body.style.overflow = "hidden"
     window.addEventListener("keydown", onKey)
     return () => {
       document.body.style.overflow = previous
       window.removeEventListener("keydown", onKey)
+      triggerRef.current?.focus({ preventScroll: true })
     }
   }, [open])
 
@@ -43,12 +55,19 @@ export const SiteHeader = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)")
+    const closeOnDesktop = () => { if (desktop.matches) setOpen(false) }
+    desktop.addEventListener("change", closeOnDesktop)
+    return () => desktop.removeEventListener("change", closeOnDesktop)
+  }, [])
+
   const isHome = pathname === "/"
   const desktopLinks = nav.filter((l) => l.to !== "/")
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b transition-colors duration-500 ${
+      className={`site-header sticky top-0 z-40 border-b transition-colors duration-500 ${
         scrolled || open || !isHome
           ? "border-gold/20 bg-charcoal/95 backdrop-blur-md"
           : "border-transparent bg-gradient-to-b from-charcoal/70 to-transparent"
@@ -97,6 +116,7 @@ export const SiteHeader = () => {
           className={`relative z-50 p-1 text-ivory lg:hidden ${ring}`}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          ref={triggerRef}
           aria-controls="mobile-menu"
         >
           {open ? <X size={26} /> : <List size={26} />}
@@ -111,6 +131,7 @@ export const SiteHeader = () => {
         {open && (
           <motion.nav
             id="mobile-menu"
+            ref={menuRef}
             aria-label="Mobile"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -159,3 +180,4 @@ export const SiteHeader = () => {
     </header>
   )
 }
+

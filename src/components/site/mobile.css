@@ -1,0 +1,73 @@
+/* Phone layouts keep all image reveals and the hero orbit. Continuous page
+   parallax is unmounted in React; these rules handle geometry and touch UI. */
+@media (max-width: 760px) {
+  .depth-site { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+  .depth-site .site-header > div:first-child { height: 64px; padding-inline: 20px; gap: 12px; }
+  .depth-site .site-header img { max-width: 176px; height: 48px; }
+  .depth-site .site-header button, #mobile-menu button { min-width: 48px; min-height: 48px; display: grid; place-items: center; }
+  .depth-site [id] { scroll-margin-top: 76px; }
+  .depth-site .immersive-hero { padding-inline: 20px; }
+  .depth-site .studio-topline { padding: 14px 0; gap: 8px; font-size: 8px; line-height: 1.5; }
+  .depth-site .studio-layout { grid-template-columns: minmax(0,1fr); padding: 26px 0 16px; gap: 24px; min-height: 0; }
+  .depth-site .studio-title { font-size: clamp(38px, 10.7vw, 62px); line-height: 1.08; margin: 18px 0; }
+  .depth-site .studio-eyebrow { font-size: 9px; letter-spacing: .13em; gap: 8px; line-height: 1.6; }
+  .depth-site .studio-description { font-size: 16px; line-height: 1.6; margin: 16px 0 20px; }
+  .depth-site .studio-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .depth-site .studio-primary { min-height: 48px; padding: 12px 18px; font-size: 13px; }
+  .depth-site .studio-secondary { justify-self: center; min-height: 44px; padding: 8px 0; font-size: 13px; }
+  .depth-site .studio-signature { margin-top: 16px; font-size: 27px; gap: 14px; }
+  .depth-site .studio-signature span { font-size: 8px; padding-left: 14px; }
+  .depth-site .studio-gallery { height: clamp(325px, 92vw, 415px); margin: 0; }
+  .depth-site .gallery-scene { inset: 32px 0 95px; touch-action: pan-y; }
+  .depth-site .gallery-frame { width: 56%; left: 22%; padding: 7px; box-shadow: 5px 6px 0 #171811, 0 16px 30px #0007; }
+  .depth-site .gallery-mat { padding: 8px; }
+  .depth-site .gallery-frame-label { font-size: 6px; letter-spacing: .1em; }
+  .depth-site .gallery-coordinate { font-size: 7px; letter-spacing: .11em; }
+  .depth-site .gallery-caption { padding-top: 12px; gap: 12px; }
+  .depth-site .gallery-caption a { font-size: 21px; gap: 8px; min-height: 44px; }
+  .depth-site .gallery-kicker { font-size: 8px; margin-bottom: 3px; }
+  .depth-site .gallery-controls { gap: 8px; flex: none; }
+  .depth-site .gallery-controls button { width: 48px; height: 48px; }
+  .depth-site .gallery-floor { filter: blur(12px); bottom: 85px; }
+  .depth-site .studio-bottom { padding: 10px 0; gap: 8px; flex-wrap: wrap; }
+  .depth-site .studio-bottom button, .depth-site .studio-bottom a { min-height: 44px; font-size: 9px; }
+  .depth-site .selected-practice { padding: 44px 20px; }
+  .depth-site .practice-cards { gap: 32px; }
+  .depth-site .practice-card-caption { margin-top: 16px; gap: 12px; }
+  .depth-site .practice-card-caption h3 { font-size: 24px; }
+  .depth-site .practice-card p { font-size: 15px; margin-left: 0; }
+  .depth-site .depth-page-hero > div.relative { padding: 48px 20px; }
+  .depth-site .depth-page-hero h1 { font-size: clamp(34px, 9.3vw, 52px); line-height: 1.12; }
+  .depth-site .depth-page-hero p { overflow-wrap: anywhere; }
+  .depth-site .depth-category-grid { gap: 32px; }
+  .depth-site .depth-type-grid { gap: 12px; }
+  .depth-site .depth-type-grid > li { padding-inline: 16px; }
+  .depth-site .scroll-depth { perspective: none; }
+  .depth-site .depth-surface { box-shadow: 0 12px 24px -18px #0009; }
+  .depth-site .depth-toggle { position: static; margin: 12px auto 0; min-height: 48px; font-size: 12px; backdrop-filter: none; }
+  .depth-site .grain { display: none; }
+  .depth-site input, .depth-site textarea, .depth-site select { font-size: 16px; scroll-margin-block: 90px; }
+  .depth-site #enquiry-form button { min-height: 44px; }
+  .depth-site #enquiry-form a { overflow-wrap: anywhere; }
+  .depth-site .sf-base-end { flex-wrap: wrap; }
+  .depth-site button[aria-label*="archive strip"] { min-width: 44px; min-height: 44px; }
+  #mobile-menu { padding: 76px 20px max(20px, env(safe-area-inset-bottom)); height: 100dvh; overflow-y: auto; overscroll-behavior: contain; }
+  #mobile-menu > div:first-child { height: 64px; padding-inline: 20px; }
+  #mobile-menu ol { flex: 1 0 auto; justify-content: flex-start; gap: 0; padding: 10px 0 24px; }
+  #mobile-menu ol a { min-height: 48px; font-size: clamp(25px, 7.3vw, 34px); line-height: 1.15; padding-block: 10px; }
+  #mobile-menu > a { flex-shrink: 0; min-height: 48px; }
+}
+@media (max-width: 359px) {
+  .depth-site .immersive-hero { padding-inline: 16px; }
+  .depth-site .studio-topline span:last-child { font-size: 7px; }
+  .depth-site .studio-signature { font-size: 24px; gap: 10px; }
+  .depth-site .studio-signature span { padding-left: 10px; font-size: 7px; }
+  .depth-site .gallery-caption a { font-size: 19px; }
+  .depth-site .gallery-controls { gap: 6px; }
+}
+@media (max-width: 1023px) and (max-height: 600px) {
+  #mobile-menu { overflow-y: auto; height: 100dvh; overscroll-behavior: contain; }
+  #mobile-menu ol { flex-shrink: 0; padding-block: 16px; }
+  #mobile-menu > a { flex-shrink: 0; }
+}
+.depth-still .gallery-orbit { animation-play-state: paused; }
